@@ -1,9 +1,38 @@
-nmap -p- --open -n -Pn -T4 -sV <IP> -oG - | awk '
-/open/ {
-    split($2, ip, " "); 
-    split($1, port, "/"); 
-    if ($0 ~ /https/) 
-        print "https://" ip[1] ":" port[1]; 
-    else 
-        print "http://" ip[1] ":" port[1];
-}' | tee urls.txt
+Issue Summary:
+During the assessment, it was observed that the application did not properly implement essential security headers, including:
+
+X-Content-Type-Options
+X-Frame-Options
+Strict-Transport-Security (HSTS)
+Cache-Control and Pragma
+Content-Security-Policy
+Security headers provide an additional layer of protection against various web-based attacks, including MIME-type sniffing, clickjacking, man-in-the-middle attacks, and data caching vulnerabilities.
+
+Recommendations:
+X-Content-Type-Options:
+
+Set the header to: X-Content-Type-Options: nosniff
+This prevents MIME type sniffing, ensuring browsers strictly honor the declared content type.
+X-Frame-Options:
+
+Set the header to: X-Frame-Options: DENY
+This prevents the application from being embedded in iframes, mitigating clickjacking attacks.
+Strict-Transport-Security (HSTS):
+
+Set the header to: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+This forces all future connections to use HTTPS, improving transport security.
+Cache-Control and Pragma:
+
+Set the headers as follows:
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+These prevent the caching of sensitive data, reducing the risk of exposure.
+Content-Security-Policy (CSP):
+
+Define a strict CSP policy to mitigate cross-site scripting (XSS) and data injection attacks.
+Example:
+pgsql
+Copy
+Edit
+Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-scripts.com; object-src 'none'  
+Implementing these headers will enhance the application's security posture and mitigate potential risks.
