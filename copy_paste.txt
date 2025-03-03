@@ -1,8 +1,5 @@
-Description:
-During the analysis, it was observed that the server was vulnerable to the SWEET32 attack due to the use of weak 64-bit ciphers. These ciphers, such as 3DES (Triple DES), were enabled on the server and could have been exploited by attackers to perform collision attacks and decrypt encrypted traffic.
+The penetration testing team conducted a security assessment of the aaa application. The assessment was performed using a black-box, unauthenticated approach on the designated applications and IP addresses.
 
-Impact:
-The presence of medium-strength 64-bit ciphers could have allowed attackers to exploit the SWEET32 vulnerability, potentially decrypting SSL/TLS communication and exposing sensitive information. This could have led to data breaches, unauthorized access, or compromise of encrypted sessions, affecting the confidentiality and integrity of data transmission.
+During the assessment, one high-risk, one medium-risk, four low-risk, and three informational findings were identified. An Nmap scan was performed on the IP addresses. Many reachable IP addresses had multiple open ports, and the team enumerated the associated services. The team also attempted to identify misconfigurations and weak authentication across various services through brute-force attacks and other relevant security evaluations.
 
-Recommendation:
-It is recommended to disable weak 64-bit ciphers, such as 3DES, and configure the server to use stronger encryption algorithms like AES-GCM or ChaCha20-Poly1305. The SSL/TLS configuration should be updated to restrict medium-strength ciphers and enforce the use of modern, secure protocols such as TLS 1.2 or TLS 1.3. Additionally, a security review should be conducted to ensure compliance with industry best practices and regulatory standards.
+The assessment revealed that the Redis server was not protected by authentication, allowing unauthorized enumeration. Additionally, directory enumeration was performed to locate web applications on web services, but no results were found. The team also identified the use of Basic Authentication, which is not a secure approach for login. Furthermore, an obsolete version of IIS was observed in use.
