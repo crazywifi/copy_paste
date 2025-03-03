@@ -1,1 +1,5 @@
-This issue was reported as **Low severity** rather than **Medium** because there were no publicly available exploits to take advantage of the deprecated **TLS 1.0** protocol. Additionally, the assessment was conducted on a **black-box, unauthenticated application**, which limited the ability to fully evaluate potential exploitability.
+The penetration testing team conducted a security assessment of the APPLICATION NAME application. The assessment was performed using a black-box, unauthenticated approach on the designated applications and IP addresses.
+
+During the assessment, only low-risk and informational findings were identified. Six IP addresses did not respond to ping requests or Nmap scans without the ping scan option. Many reachable IP addresses had multiple open ports, and the team enumerated the associated services. The team also attempted to identify misconfigurations and weak authentication across various services through brute-force attacks and other relevant security evaluations.
+
+Additionally, directory enumeration was performed to locate web applications on web services, but no results were found. The team identified the use of Basic Authentication, which is not a secure approach for login. Furthermore, an obsolete version of IIS was observed in use.
