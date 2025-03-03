@@ -1,13 +1,9 @@
-Observation
-During the assessment, it was observed that the server-side SSL/TLS endpoint was configured to allow weak SSL/TLS cipher suites. These cipher suites had known cryptographic flaws, which could have allowed an attacker to decrypt or modify traffic.
+Observation: Default Pages Found
+Analysis
+During the assessment, it was observed that the remote server contained default error pages, index pages, example JSPs, and/or example servlets. These files are typically included in default installations and could have provided insights into the server’s configuration. The provided evidence confirms this finding.
 
-Weak cipher suites identified included the following:
+Impact
+The presence of exposed default installation or "Welcome" pages indicated that the server may not have been properly configured or secured. This could have helped attackers identify the underlying technologies, software versions, and server configurations, making it easier to exploit known vulnerabilities. Additionally, servers with default pages are often overlooked in patching and monitoring processes, increasing the risk of compromise.
 
-SSL/TLS Diffie-Hellman Modulus ≤ 1024 Bits (Logjam)
-It was observed that the remote server supported DHE cipher suites with keys of 1024 bits or less. The provided evidence confirms this finding. The Logjam attack exploits vulnerabilities in the Diffie-Hellman key exchange mechanism when using keys ranging from 512-bit (export-grade) to 1024-bit keys. Through cryptanalysis, an attacker with sufficient resources could have computed the shared secret in a relatively short time, potentially decrypting communications or tampering with encrypted data. To mitigate this risk, it is recommended to use a minimum key size of 2048 bits for secure Diffie-Hellman key exchanges.
-
-SSL Certificate Signed Using a Weak Hashing Algorithm
-It was observed that the SSL certificate was signed using the cryptographically weak SHA-1 algorithm. This hashing algorithm is known to be vulnerable to collision attacks. A determined attacker could have exploited this weakness to generate a fraudulent certificate with the same digital signature, allowing them to impersonate the affected service.
-
-SSL Certificate Expiry
-The analysis revealed that the SSL certificates associated with SSL-enabled services on the target had already expired. The expiry of an SSL certificate could have led to a loss of trust, security warnings from browsers, potential data breaches, and an increased susceptibility to man-in-the-middle attacks. This could have compromised sensitive user information and negatively impacted the organization's reputation.
+Recommendation
+It is recommended to remove all default pages and example files to prevent the disclosure of sensitive server information. Instead, custom error and index pages should be used to enhance security. If the service is not required, it should be disabled. For specific instructions on removing default pages in IIS and Tomcat, refer to the documentation linked in the references.
