@@ -1,1 +1,16 @@
-aa
+Vulnerability: Unauthenticated Redis Server
+Description:
+During the assessment, it was observed that the Redis server was accessible without authentication. By default, Redis does not enforce authentication unless explicitly configured, which means that anyone with network access to the Redis instance could connect and execute commands without restrictions.
+
+Impact:
+Unauthorized access: Attackers could read, modify, or delete data stored in Redis.
+Data manipulation: Malicious actors could inject or modify cached data, potentially leading to application-level attacks such as cache poisoning.
+Remote code execution: In some cases, attackers could exploit the unauthenticated Redis instance to execute arbitrary commands, potentially leading to a full server compromise.
+Denial of Service (DoS): Attackers could flush the database, delete keys, or overload the server, disrupting services dependent on Redis.
+Recommendation:
+Enable authentication by configuring a strong password using Redis’s built-in requirepass directive.
+Restrict access to the Redis instance by binding it to localhost (bind 127.0.0.1) or allowing only trusted IPs in the configuration.
+Use firewall rules (e.g., iptables or cloud security groups) to limit access to Redis from authorized hosts only.
+Enable TLS encryption to secure communication between clients and the Redis server.
+Disable dangerous commands such as FLUSHALL, CONFIG, and SHUTDOWN to prevent misuse.
+Regularly update Redis to apply security patches and mitigate potential vulnerabilities.
