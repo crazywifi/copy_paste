@@ -1,24 +1,11 @@
-Observation: HSTS Missing from HTTPS Server
-Description
-During the assessment, it was observed that the HTTPS server did not enforce HTTP Strict Transport Security (HSTS). HSTS is a security mechanism that protects against protocol downgrade attacks and man-in-the-middle (MITM) attacks, such as SSL stripping. When properly implemented, HSTS instructs browsers to communicate with the server only over secure HTTPS connections, preventing users from accidentally accessing the site over an unencrypted HTTP connection.
+nmap -p- --open -n -Pn -T4 -sV <IP> -oG - | awk '
+/open/ {
+    split($1, a, "/"); 
+    if ($0 ~ /https/) 
+        print "https://" $2 ":" a[1]; 
+    else 
+        print "http://" $2 ":" a[1];
+}' | tee urls.txt
 
-The absence of HSTS could have allowed an attacker to intercept unencrypted HTTP requests and force a downgrade to an insecure connection, potentially exposing sensitive user data.
 
-Impact
-Without HSTS, users could have been vulnerable to SSL stripping attacks, where an attacker forces the browser to connect over HTTP instead of HTTPS. This could have led to:
-
-Exposure of sensitive information, such as login credentials, session tokens, and personal data.
-Session hijacking, allowing an attacker to impersonate a user.
-Increased risk of phishing attacks, as users could have been redirected to lookalike HTTP sites without security warnings.
-Additionally, the lack of HSTS could have weakened the overall security posture of the application, making it more susceptible to exploitation.
-
-Recommendation
-To mitigate these risks, it is recommended to enable HSTS by adding the Strict-Transport-Security header to the server’s HTTP response. The header should be configured with appropriate directives, such as:
-
-lua
-Copy
-Edit
-Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-max-age=31536000: Specifies that browsers should only use HTTPS for the next one year.
-includeSubDomains: Ensures that HSTS applies to all subdomains.
-preload: Allows the domain to be included in browser HSTS preload lists for stronger enforcement.
+nmap -p- --open -n -Pn -T4 -sV <IP> -oG - | awk '/open/{split($1, a, "/"); print ($0 ~ /https/ ? "https://" : "http://") $2 ":" a[1]}' | tee urls.txt
