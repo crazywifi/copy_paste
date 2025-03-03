@@ -1,19 +1,24 @@
-Observation: Outdated TLS Protocols in Use
-Analysis
-During the penetration testing assessment, it was observed that the server-side SSL/TLS endpoint was configured to allow connections using TLS protocol versions 1.0 ("TLSv1.0") and 1.1 ("TLSv1.1"). These protocol versions are outdated and contain known security weaknesses.
+Observation: HSTS Missing from HTTPS Server
+Description
+During the assessment, it was observed that the HTTPS server did not enforce HTTP Strict Transport Security (HSTS). HSTS is a security mechanism that protects against protocol downgrade attacks and man-in-the-middle (MITM) attacks, such as SSL stripping. When properly implemented, HSTS instructs browsers to communicate with the server only over secure HTTPS connections, preventing users from accidentally accessing the site over an unencrypted HTTP connection.
 
-The TLS protocol is designed to provide secure transport between endpoints over a network by ensuring data integrity and confidentiality. However, certain configurations of TLSv1.0 were found to be vulnerable to known man-in-the-middle (MITM) attacks, including the BEAST and POODLE attacks. Additionally, multiple standards organizations, including NIST and PCI, have declared that TLSv1.0 no longer provides sufficient data protection.
+The absence of HSTS could have allowed an attacker to intercept unencrypted HTTP requests and force a downgrade to an insecure connection, potentially exposing sensitive user data.
 
-Weaknesses in TLSv1.0 and TLSv1.1 connections could have allowed an attacker to decrypt traffic between a victim’s client and the server. Any sensitive information transmitted over these connections, such as credentials, account data, personally identifiable information (PII), and financial records, may have been exposed. Furthermore, exposure of session identifiers could have enabled an attacker to hijack a victim’s session, impersonate them in the application, or modify data in transit, leading to potential data manipulation.
+Impact
+Without HSTS, users could have been vulnerable to SSL stripping attacks, where an attacker forces the browser to connect over HTTP instead of HTTPS. This could have led to:
 
-Resolution
-To mitigate this risk, it is recommended to update the server-side TLS endpoint configuration to allow only TLSv1.3 and TLSv1.2 connections with strong cipher suites.
+Exposure of sensitive information, such as login credentials, session tokens, and personal data.
+Session hijacking, allowing an attacker to impersonate a user.
+Increased risk of phishing attacks, as users could have been redirected to lookalike HTTP sites without security warnings.
+Additionally, the lack of HSTS could have weakened the overall security posture of the application, making it more susceptible to exploitation.
 
-TLS v1.3 is the latest standard that only supports strong ciphers with authenticated encryption (AEAD).
-TLS v1.2 should be enabled for backward compatibility with clients that do not yet support TLS v1.3. However, to ensure strong security, TLS v1.2 must be configured with the following best practices:
-Use Elliptic Curve Diffie-Hellman Ephemeral (ECDHE) for key exchange to support Forward Secrecy.
-Use block ciphers (e.g., AES) in GCM mode (avoid CBC mode).
-An example of a secure cipher suite following these recommendations is:
-TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (also known as ECDHE-ECDSA-AES128-GCM-SHA256).
+Recommendation
+To mitigate these risks, it is recommended to enable HSTS by adding the Strict-Transport-Security header to the server’s HTTP response. The header should be configured with appropriate directives, such as:
 
-Implementing these changes will enhance the security of data in transit, protect against MITM attacks, and ensure compliance with industry standards.
+lua
+Copy
+Edit
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+max-age=31536000: Specifies that browsers should only use HTTPS for the next one year.
+includeSubDomains: Ensures that HSTS applies to all subdomains.
+preload: Allows the domain to be included in browser HSTS preload lists for stronger enforcement.
