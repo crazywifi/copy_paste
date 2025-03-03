@@ -1,3 +1,8 @@
-It is recommended to disable the use of Cipher Block Chaining (CBC) mode ciphers in SSH as they are considered vulnerable to cryptographic attacks. CBC mode ciphers process data in fixed-size blocks, making them susceptible to attacks such as plaintext recovery and padding oracle attacks.
+Description:
+The remote SSH server was configured to allow Cipher Block Chaining (CBC) mode ciphers, which are considered weak and vulnerable to cryptographic attacks. CBC mode processes data in fixed-size blocks, making it susceptible to attacks such as plaintext recovery and padding oracle attacks. The use of CBC ciphers can weaken the security of SSH connections.
 
-It is recommended to replace CBC ciphers with stronger alternatives, such as ChaCha20-Poly1305 or AES-GCM, which offer authenticated encryption and better security.
+Impact:
+The use of CBC mode ciphers could have exposed SSH sessions to cryptographic vulnerabilities, potentially allowing attackers to decrypt or manipulate encrypted communication. This could have led to unauthorized access, data leakage, or man-in-the-middle (MITM) attacks, compromising the confidentiality and integrity of SSH connections.
+
+Recommendation:
+It is recommended to disable CBC mode ciphers and configure the SSH server to use more secure encryption algorithms. Stronger alternatives, such as ChaCha20-Poly1305 or AES-GCM, should be used to enhance security. The SSH configuration file (/etc/ssh/sshd_config) should be updated to remove weak ciphers and include only secure options. After making these changes, the SSH service should be restarted to apply the updated security settings. Regular security audits should also be conducted to ensure compliance with best practices.
