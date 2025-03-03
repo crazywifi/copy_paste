@@ -36,3 +36,23 @@ Copy
 Edit
 Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-scripts.com; object-src 'none'  
 Implementing these headers will enhance the application's security posture and mitigate potential risks.
+
+
+
+Issue Descriptions:
+X-Content-Type-Options:
+
+The absence of this header allows browsers to perform MIME-type sniffing, which can lead to security vulnerabilities by incorrectly interpreting file types.
+X-Frame-Options:
+
+Without this header, the application can be embedded in iframes on malicious websites, making it vulnerable to clickjacking attacks, where users are tricked into performing unintended actions.
+Strict-Transport-Security (HSTS):
+
+If HSTS is not implemented, attackers can attempt man-in-the-middle (MITM) attacks by forcing HTTP connections instead of HTTPS, exposing sensitive data.
+Cache-Control and Pragma:
+
+The absence of these headers may allow browsers and intermediary servers to cache sensitive information, increasing the risk of unauthorized data access.
+Content-Security-Policy (CSP):
+
+Without a proper CSP, the application is vulnerable to cross-site scripting (XSS) and data injection attacks, where malicious scripts can be executed in a user’s browser.
+Implementing these security headers helps protect against various web-based threats and enhances overall application security.
