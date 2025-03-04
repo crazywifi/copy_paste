@@ -1,1 +1,8 @@
-aa
+Description:
+During the analysis, it was identified that HTTP Strict Transport Security (HSTS) was not implemented on the web server. HSTS is a security feature that enforces secure connections by ensuring browsers interact with the server only over HTTPS.
+
+Impact:
+The absence of HSTS increases the risk of man-in-the-middle (MITM) attacks, such as SSL stripping, where an attacker can downgrade HTTPS connections to HTTP, potentially intercepting or manipulating sensitive data.
+
+Recommendation:
+It is recommended to enable HSTS by configuring the web server to include the Strict-Transport-Security header with an appropriate max-age value. This ensures that browsers enforce secure connections, reducing the risk of insecure communication.
