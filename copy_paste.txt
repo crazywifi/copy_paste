@@ -1,1 +1,11 @@
-aa
+Port Analysis (HTTP 80, HTTPS 443):
+Conducted an assessment of open ports and found no unauthorized access, weak credentials, or misconfigurations. No publicly exposed services were running with default or easily exploitable settings.
+
+HTTP Service Directory Enumeration:
+Performed directory enumeration on the HTTP service, but no accessible directories or sensitive information were discovered.
+
+SQL Injection Testing:
+Tested SQL Injection payloads against the web application login page, and no successful bypasses were detected.
+
+Authentication Security Assessment:
+Evaluated authentication mechanisms, which successfully resisted brute-force and credential-stuffing attempts.
