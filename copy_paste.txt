@@ -1,9 +1,1 @@
-Remove the Remediation Tracker from the first page.
-The Executive Summary should provide an overview of your project. You may reference content from other reports, but only after ensuring it is relevant to your project. Do not copy and paste directly without understanding the context. Also, check the grammar and ensure consistency, especially when referring to a single IP address or multiple IPs. The summary should be in the past tense, as it describes completed work.
-The Findings Overview section must align with the number of findings listed in the index.
-You may reuse Positive Notes from other reports, but modify them as needed to reflect the specific services covered in your report. Add or remove details accordingly.
-The vulnerability names should follow proper capitalization (e.g., "Click Jacking" instead of "click jacking").
-The Description should be written in the past tense, as it outlines work that has already been completed. If possible, include an analysis within the description along with the impact assessment.
-If you are unsure about a service, research it online or use AI tools like GPT. However, always validate AI-generated responses before including them in the report. If referencing a CVE, do not copy-paste it directly; ensure accuracy and relevance.
-Use left alignment in Word reports, as justified text does not always display correctly in all cases.
-As you work, start compiling notes on vulnerabilities and other relevant data. This will help streamline the report-writing process and improve efficiency.
+aa
