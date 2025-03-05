@@ -1,49 +1,8 @@
-import ssl
-import socket
-import OpenSSL
-import pandas as pd
-from datetime import datetime
+Description:
+During the analysis, it was identified that the remote NTP server responds to Mode 6 queries. Devices that allow such queries can be exploited for NTP amplification attacks. An unauthenticated, remote attacker could use specially crafted Mode 6 queries to trigger a reflected denial-of-service (DoS) condition.
 
-# Load IP and Port data from Excel
-excel_file = "ip_list.xlsx"
-df = pd.read_excel(excel_file)
+Impact:
+Attackers can leverage Mode 6 responses to amplify traffic, leading to large-scale DoS attacks against targeted systems. This can degrade network performance, disrupt services, and potentially impact other critical infrastructure relying on NTP synchronization.
 
-# Function to check SSL certificate trust
-def check_ssl_certificate(ip, port):
-    try:
-        # Create a socket connection
-        conn = socket.create_connection((ip, port), timeout=3)
-        context = ssl.create_default_context()
-        sock = context.wrap_socket(conn, server_hostname=ip)
-        cert = sock.getpeercert(binary_form=True)
-        x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_ASN1, cert)
-        
-        # Get certificate issuer and subject
-        issuer = x509.get_issuer()
-        subject = x509.get_subject()
-
-        # Check if the certificate is self-signed
-        if issuer == subject:
-            return "Self-Signed Certificate (Cannot be Trusted)"
-
-        # Get certificate expiration date
-        expiry_date = x509.get_notAfter().decode("utf-8")
-        expiry_datetime = datetime.strptime(expiry_date, "%Y%m%d%H%M%SZ")
-
-        # Check if expired
-        if expiry_datetime < datetime.utcnow():
-            return "Expired Certificate (Cannot be Trusted)"
-
-        return "Trusted SSL Certificate"
-
-    except (ssl.SSLError, socket.timeout, ConnectionRefusedError):
-        return "No SSL / Connection Failed"
-
-# Scan IPs and Ports for SSL issues
-df["SSL Status"] = df.apply(lambda row: check_ssl_certificate(str(row["Host"]), int(row["Port"])), axis=1)
-
-# Save results to a new Excel file
-output_file = "ssl_scan_results.xlsx"
-df.to_excel(output_file, index=False)
-
-print(f"\nScan Completed! Results saved in '{output_file}'")
+Recommendation:
+It is recommended to restrict NTP Mode 6 queries to trusted sources by applying appropriate access control lists (ACLs). Additionally, unnecessary NTP query functionalities should be disabled, and the NTP service should be updated to the latest secure version to mitigate known vulnerabilities.
