@@ -1,8 +1,3 @@
-Description:
-During the analysis, it was identified that the SSL certificate chain contains an RSA key smaller than 2048 bits. RSA keys of insufficient length are considered weak and do not provide adequate security against modern cryptographic attacks.
-
-Impact:
-A weak RSA key increases the risk of cryptographic compromise, making it easier for attackers to break the encryption and potentially intercept or manipulate sensitive data. This weakens the overall security of the TLS communication and may lead to non-compliance with security standards.
-
-Recommendation:
-It is recommended to replace the SSL certificate with one that uses an RSA key of at least 2048 bits or, preferably, switch to an Elliptic Curve Cryptography (ECC) certificate for stronger security and better performance.
+awk '/Nmap scan report/{ip=$5} /open/{port=$1} /Issuer:/ {issuer=$0} /Subject:/ {subject=$0} 
+    /self-signed/ {print ip ":" port " - Self-Signed Certificate"} 
+    /expired/ {print ip ":" port " - Expired Certificate"}' ssl_scan_results.txt
