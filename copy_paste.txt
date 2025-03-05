@@ -1,3 +1,49 @@
-awk '/Nmap scan report/{ip=$5} /open/{port=$1} /Issuer:/ {issuer=$0} /Subject:/ {subject=$0} 
-    /self-signed/ {print ip ":" port " - Self-Signed Certificate"} 
-    /expired/ {print ip ":" port " - Expired Certificate"}' ssl_scan_results.txt
+import ssl
+import socket
+import OpenSSL
+import pandas as pd
+from datetime import datetime
+
+# Load IP and Port data from Excel
+excel_file = "ip_list.xlsx"
+df = pd.read_excel(excel_file)
+
+# Function to check SSL certificate trust
+def check_ssl_certificate(ip, port):
+    try:
+        # Create a socket connection
+        conn = socket.create_connection((ip, port), timeout=3)
+        context = ssl.create_default_context()
+        sock = context.wrap_socket(conn, server_hostname=ip)
+        cert = sock.getpeercert(binary_form=True)
+        x509 = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_ASN1, cert)
+        
+        # Get certificate issuer and subject
+        issuer = x509.get_issuer()
+        subject = x509.get_subject()
+
+        # Check if the certificate is self-signed
+        if issuer == subject:
+            return "Self-Signed Certificate (Cannot be Trusted)"
+
+        # Get certificate expiration date
+        expiry_date = x509.get_notAfter().decode("utf-8")
+        expiry_datetime = datetime.strptime(expiry_date, "%Y%m%d%H%M%SZ")
+
+        # Check if expired
+        if expiry_datetime < datetime.utcnow():
+            return "Expired Certificate (Cannot be Trusted)"
+
+        return "Trusted SSL Certificate"
+
+    except (ssl.SSLError, socket.timeout, ConnectionRefusedError):
+        return "No SSL / Connection Failed"
+
+# Scan IPs and Ports for SSL issues
+df["SSL Status"] = df.apply(lambda row: check_ssl_certificate(str(row["Host"]), int(row["Port"])), axis=1)
+
+# Save results to a new Excel file
+output_file = "ssl_scan_results.xlsx"
+df.to_excel(output_file, index=False)
+
+print(f"\nScan Completed! Results saved in '{output_file}'")
