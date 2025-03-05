@@ -1,11 +1,21 @@
-Port Analysis (HTTP 80, HTTPS 443):
-Conducted an assessment of open ports and found no unauthorized access, weak credentials, or misconfigurations. No publicly exposed services were running with default or easily exploitable settings.
+import re
 
-HTTP Service Directory Enumeration:
-Performed directory enumeration on the HTTP service, but no accessible directories or sensitive information were discovered.
+# Read the Nmap output file
+with open("ssl_scan_results.txt", "r") as file:
+    lines = file.readlines()
 
-SQL Injection Testing:
-Tested SQL Injection payloads against the web application login page, and no successful bypasses were detected.
+ip, port = None, None
+for line in lines:
+    # Capture IP address
+    ip_match = re.search(r"Nmap scan report for (\d+\.\d+\.\d+\.\d+)", line)
+    if ip_match:
+        ip = ip_match.group(1)
 
-Authentication Security Assessment:
-Evaluated authentication mechanisms, which successfully resisted brute-force and credential-stuffing attempts.
+    # Capture Port number
+    port_match = re.search(r"(\d+)/open", line)
+    if port_match:
+        port = port_match.group(1)
+
+    # Capture SSL certificate issues
+    if "self-signed" in line or "not trusted" in line:
+        print(f"{ip}:{port} - {line.strip()}")
