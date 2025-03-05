@@ -1,8 +1,8 @@
 Description:
-During the analysis, it was identified that the remote NTP server responds to Mode 6 queries. Devices that allow such queries can be exploited for NTP amplification attacks. An unauthenticated, remote attacker could use specially crafted Mode 6 queries to trigger a reflected denial-of-service (DoS) condition.
+During the analysis, it was identified that Adobe ColdFusion 2021 was in use. However, due to black-box testing limitations, it was not possible to verify if the latest security updates had been applied. ColdFusion 2021 had multiple known vulnerabilities (CVE-2021-21087, CVE-2021-40698, CVE-2024-53961), and an outdated version could have exposed the system to security risks.
 
 Impact:
-Attackers can leverage Mode 6 responses to amplify traffic, leading to large-scale DoS attacks against targeted systems. This can degrade network performance, disrupt services, and potentially impact other critical infrastructure relying on NTP synchronization.
+If the ColdFusion instance was not updated, attackers could have exploited known vulnerabilities to gain unauthorized access, execute arbitrary code, or perform remote attacks. This could have led to data breaches, service disruptions, and potential system compromise.
 
 Recommendation:
-It is recommended to restrict NTP Mode 6 queries to trusted sources by applying appropriate access control lists (ACLs). Additionally, unnecessary NTP query functionalities should be disabled, and the NTP service should be updated to the latest secure version to mitigate known vulnerabilities.
+It is recommended to verify the ColdFusion version and apply the latest security patches provided by Adobe. Additionally, regular vulnerability assessments should be conducted to ensure that the system remains protected against emerging threats.
