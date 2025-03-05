@@ -1,8 +1,8 @@
 Description:
-During the analysis, it was identified that Adobe ColdFusion 2021 was in use. However, due to black-box testing limitations, it was not possible to verify if the latest security updates had been applied. ColdFusion 2021 had multiple known vulnerabilities (CVE-2021-21087, CVE-2021-40698, CVE-2024-53961), and an outdated version could have exposed the system to security risks.
+During the analysis, it was identified that the SMTP server was configured as an open relay, allowing email transmission without proper authentication. Testing confirmed that it was possible to send emails from the internal domain to external recipients, from the internal domain to internal addresses, and from external domains to internal addresses. This misconfiguration could have allowed unauthorized entities to misuse the server for sending unsolicited emails.
 
 Impact:
-If the ColdFusion instance was not updated, attackers could have exploited known vulnerabilities to gain unauthorized access, execute arbitrary code, or perform remote attacks. This could have led to data breaches, service disruptions, and potential system compromise.
+An open SMTP relay could have been exploited by attackers to send spam, phishing emails, or conduct email spoofing. This could have led to the SMTP server being blacklisted by email providers, disrupted email communications, and potentially facilitated social engineering attacks against users.
 
 Recommendation:
-It is recommended to verify the ColdFusion version and apply the latest security patches provided by Adobe. Additionally, regular vulnerability assessments should be conducted to ensure that the system remains protected against emerging threats.
+It is recommended to configure the SMTP server to restrict email relaying by implementing authentication and access control policies. The server should be set to allow email relay only for trusted sources, and logging should be enabled to monitor for any unauthorized email activity.
