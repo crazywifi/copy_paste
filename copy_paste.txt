@@ -1,8 +1,22 @@
 Description:
-During the analysis, it was identified that the AMQP (Advanced Message Queuing Protocol) service allowed authentication over an unencrypted connection. AMQP is a widely used messaging protocol that enables communication between distributed systems, facilitating reliable message queuing, routing, and transactions. It is commonly used in microservices architectures, cloud environments, and enterprise messaging systems. However, we detected that AMQP was running on port 5672 (default, unencrypted) instead of the secure TLS-encrypted port 5671, which could have exposed authentication credentials.
+During the analysis, it was identified that the application did not include the X-Content-Type-Options HTTP response header. This header is a security feature designed to prevent browsers from MIME-sniffing a response away from the declared Content-Type, reducing the risk of certain types of attacks such as content-type spoofing. The absence of this header could have allowed browsers to interpret files in unintended ways, potentially leading to security vulnerabilities.
 
 Impact:
-Allowing authentication over an unencrypted AMQP connection could have led to the interception of credentials by attackers through man-in-the-middle (MITM) attacks. This could have resulted in unauthorized access to the message queue, leading to data leakage, message manipulation, or disruption of message-based communications within the system. If exploited, this could compromise the integrity and confidentiality of inter-service communications, affecting application functionality and security.
+Without the X-Content-Type-Options: nosniff header, browsers might attempt to determine the content type of a resource dynamically, which could result in the execution of malicious scripts or unauthorized content rendering. This could increase the risk of cross-site scripting (XSS) attacks, content injection, or other security issues, potentially compromising user data and application integrity.
 
 Recommendation:
-It is recommended to configure the AMQP service to use TLS encryption (port 5671) to protect authentication credentials and message integrity. Additionally, strict access controls should be enforced, and unnecessary plaintext authentication should be disabled to mitigate security risks. Regular security assessments should be conducted to ensure compliance with best practices and to verify that all AMQP communications are securely encrypted.
+It is recommended to configure the web server or application to include the X-Content-Type-Options: nosniff header in all HTTP responses. This ensures that browsers strictly adhere to the declared Content-Type and do not attempt MIME-sniffing. Implementing this header as part of a broader security strategy can help mitigate content-type-based attacks and enhance overall web application security.
+
+
+Description:
+During the analysis, it was identified that the application did not include the X-Frame-Options HTTP response header. This header is a security measure designed to prevent clickjacking attacks by controlling whether a webpage can be embedded within an <iframe>. The absence of this header could have allowed an attacker to load the application within a malicious site, tricking users into interacting with hidden elements.
+
+Impact:
+Without the X-Frame-Options header, the application could have been vulnerable to clickjacking attacks, where an attacker overlays invisible elements on a trusted page to steal user input, such as login credentials or sensitive actions. This could have led to account compromise, unauthorized transactions, or other malicious activities.
+
+Recommendation:
+It is recommended to configure the web server or application to include the X-Frame-Options header in HTTP responses. The recommended values are:
+
+X-Frame-Options: DENY → Completely prevents the page from being embedded in an <iframe>.
+X-Frame-Options: SAMEORIGIN → Allows embedding only within the same origin.
+Additionally, modern applications should consider using the Content Security Policy (CSP) frame-ancestors directive for more flexible and secure frame control.
