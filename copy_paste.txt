@@ -34,3 +34,11 @@ ${facesContext.getExternalContext().redirect("http://10.128.148.19:9000")}
 
 location
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhV0ZgHkD8/pZvsMCCFZa4JxRv3j22//ig60iRTYDijpnyX0cEbjxq1VFsf/v44KOXZ
+
+
+
+redirect
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUT4pg1seftQQlgV6D0SDBjNp1Fbt5vDvRJg1tpOS51L8FelM4R1NS7lMRqHBINnF8=
+
+
+jZk/RSd3mTpuFzoTtRoASiq1HAjjkUQ+Jv8rUCyNTbUuV0OzWeyvxW/iAmLLN38yhTPcAkAWRFs=
