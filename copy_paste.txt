@@ -1,1 +1,7 @@
-
+def open_search():
+    search_script = os.path.join(os.path.dirname(__file__), "search.py")
+    
+    if sys.platform.startswith("win"):  # Windows
+        subprocess.Popen(["python", search_script], creationflags=subprocess.DETACHED_PROCESS)
+    else:  # macOS/Linux
+        subprocess.Popen(["nohup", "python3", search_script, "&"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
