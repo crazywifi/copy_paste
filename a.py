@@ -1,39 +1,22 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import time
+from tkinter import filedialog, messagebox, scrolledtext
 import os
 import re
 import requests
-import json
-import colorama
-from colorama import Fore, Style
-import concurrent.futures
-from urllib.parse import urlparse, parse_qs
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from subprocess import CREATE_NO_WINDOW
-import subprocess
-from tkinter.scrolledtext import ScrolledText
-import sys
-import webbrowser
-from tkinter import scrolledtext
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 import fitz  # PyMuPDF for PDFs
 import docx
 import pptx
 import pandas as pd
-import tkinter as tk
-from tkinter import filedialog, messagebox, scrolledtext, Menu
 import subprocess
 import platform
+import webbrowser
+#import colorama
+#from colorama import Fore, Style
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import sys
 
-colorama.init()
+#colorama.init()
 
 
 
@@ -384,7 +367,7 @@ def search_resumes():
     else:
         result_text.insert(tk.END, "No matching resumes found.")
 
-def append_operator(op):
+def append_operator(op, search_entry):
     text = search_entry.get()
     search_entry.delete(0, tk.END)
     search_entry.insert(0, text + f" {op} ")
@@ -436,13 +419,12 @@ def Search_Resume():
     # Operator Buttons (AND, OR, NOT)
     button_frame = tk.Frame(search_window)
     button_frame.pack(pady=5)
-    tk.Button(button_frame, text="AND", command=lambda: append_operator("AND")).pack(side=tk.LEFT, padx=5)
-    tk.Button(button_frame, text="OR", command=lambda: append_operator("OR")).pack(side=tk.LEFT, padx=5)
-    tk.Button(button_frame, text="NOT", command=lambda: append_operator("NOT")).pack(side=tk.LEFT, padx=5)
 
-    
+    tk.Button(button_frame, text="AND", command=lambda: append_operator("AND", search_entry)).pack(side=tk.LEFT, padx=5)
+    tk.Button(button_frame, text="OR", command=lambda: append_operator("OR", search_entry)).pack(side=tk.LEFT, padx=5)
+    tk.Button(button_frame, text="NOT", command=lambda: append_operator("NOT", search_entry)).pack(side=tk.LEFT, padx=5)
 
-    # Search Button (Now result_text exists before it's called)
+    # Search Button
     tk.Button(search_window, text="Search", command=lambda: search_resumes(result_text, search_entry.get())).pack(pady=5)
 
     # Folder Display
@@ -453,12 +435,11 @@ def Search_Resume():
     # Change Folder Button
     tk.Button(search_window, text="Change Folder", command=browse_folder).pack(pady=5)
 
-    # Global result_text (Declared before search button)
+    # Result Text Area
     global result_text  
     result_text = scrolledtext.ScrolledText(search_window, height=10, width=60)
     result_text.pack(pady=5)
 
-    # Bindings for result text (Open file on right-click)
     result_text.bind("<Button-1>", on_select)  # Left-click to highlight
     result_text.bind("<Button-3>", open_file)  # Right-click to open file
 
@@ -508,8 +489,8 @@ search_button.pack(pady=5)
 close_button = tk.Button(root, text="Close", command=on_closing)
 close_button.pack(pady=5)
 
-label = tk.Label(root, text="Install package:\npip3 install selenium requests colorama sphinx futures")
-label.pack(pady=5)
+#label = tk.Label(root, text="Install package:\npip3 install selenium requests colorama sphinx futures")
+#label.pack(pady=5)
 
 label = tk.Label(root, text="Created By Rishabh Sharma",fg="red")
 label.pack(pady=2)
