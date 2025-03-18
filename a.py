@@ -450,7 +450,16 @@ def search_resumes(result_text, query):
         result_text.insert(tk.END, "\n".join(matching_files))
     else:
         result_text.insert(tk.END, "No matching resumes found.")
-        
+
+def append_operator(op, search_entry):
+    """Insert a logical operator (AND, OR, NOT) into the search entry field."""
+    text = search_entry.get().strip()
+
+    if text and not text.endswith(("AND", "OR", "NOT")):  # Avoid duplicate operators
+        search_entry.insert(tk.END, f" {op} ")
+    elif not text:  # Prevent starting with an operator
+        messagebox.showerror("Error", "Please enter a search keyword before adding an operator.")
+
 def Search_Resume():
     search_window = tk.Toplevel(root)
     search_window.title("Search String")
@@ -458,17 +467,17 @@ def Search_Resume():
     search_window.configure(bg="#ddc8cf")
 
     try:
-        search_window.iconbitmap(r".\icon.ico")
+        search_window.iconbitmap(r".\icon1.ico")
     except tk.TclError:
         print("Icon file 'icon1.ico' not found or not a valid icon file.")
 
     # Search Entry Field
-    tk.Label(search_window, text="Enter search keywords:",bg="#ddc8cf").pack(pady=5)
+    tk.Label(search_window, text="Enter search keywords:", bg="#ddc8cf").pack(pady=5)
     search_entry = tk.Entry(search_window, width=50)
     search_entry.pack(pady=5)
 
     # Operator Buttons (AND, OR, NOT)
-    button_frame = tk.Frame(search_window,bg="#ddc8cf")
+    button_frame = tk.Frame(search_window, bg="#ddc8cf")
     button_frame.pack(pady=5)
 
     tk.Button(button_frame, text="AND", command=lambda: append_operator("AND", search_entry)).pack(side=tk.LEFT, padx=5)
