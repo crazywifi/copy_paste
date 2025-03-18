@@ -138,17 +138,14 @@ def login_to_microsoft():
             driver.quit()
 
 
-def stop_progress_bar():
-    progress_bar.stop()  # ✅ Stop the animation
-    progress_bar.pack_forget()  # ✅ Hide progress bar
-    print("Download completed.")
+
 
 def Download_Resume():
     global AuthorizationToken_Created
     if AuthorizationToken_Created:
         print("Login Successful..")
         print("AuthorizationToken: ", AuthorizationToken_Created)
-        progress_bar.pack(pady=5)  # ✅ Show progress bar when downloading starts
+
         progress_bar.start(10)  # ✅ Start the progress bar
 
         headers = {"Authorization": f"Bearer {AuthorizationToken_Created}"}
@@ -156,9 +153,6 @@ def Download_Resume():
 
         print("\nInitiate Downloading....")
         print("Reading Emails From EmailId.txt")
-        # Simulating a delay for the download process
-        root.after(3000, stop_progress_bar)  # ✅ Stops the progress bar after 3 seconds
-
 
         Email_ID = open(email_id_file, 'r')
         Email_ID1 = Email_ID.readlines()
@@ -562,8 +556,6 @@ label.bind("<Button-1>", lambda e: open_email())
 
 progress_bar = ttk.Progressbar(root, orient="horizontal", length=300, mode="indeterminate")
 progress_bar.pack(pady=5)
-progress_bar["value"] = 0  # ✅ Ensure it's empty
-#progress_bar.pack_forget()  # ✅ Hide it initially
 
 
 output_text = tk.Text(root, wrap="word", height=15)
