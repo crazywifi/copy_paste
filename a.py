@@ -371,9 +371,30 @@ def open_file(event):
     except Exception as e:
         print(f"Error opening file: {e}")
 
-def search_resumes():
-    query = search_entry.get()
-    if not query:
+def format_search_query(query):
+    words = query.split()  # Split by spaces
+    formatted_query = []
+    temp_phrase = []
+
+    for word in words:
+        if word.upper() in ["AND", "OR", "NOT"]:  # Logical operators stay untouched
+            if temp_phrase:
+                formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Add phrase in quotes
+                temp_phrase = []
+            formatted_query.append(word)  # Add operator
+        else:
+            temp_phrase.append(word)  # Build phrase
+
+    if temp_phrase:
+        formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Add last phrase in quotes
+
+    return " ".join(formatted_query)
+
+def search_resumes(result_text, query):
+    formatted_query = format_search_query(query)  # ✅ Automatically fix query
+    print("Formatted Query:", formatted_query)  # Debugging (remove later)
+
+    if not query.strip():
         messagebox.showerror("Error", "Please enter a search query.")
         return
     
@@ -382,7 +403,7 @@ def search_resumes():
         filepath = os.path.join(RESUME_FOLDER, file)
         if os.path.isfile(filepath):
             text = extract_text(filepath)
-            if boolean_search(text, query):
+            if boolean_search(text, formatted_query):  # ✅ Use formatted query
                 matching_files.append(file)
     
     result_text.delete("1.0", tk.END)
