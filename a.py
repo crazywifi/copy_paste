@@ -32,7 +32,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext, Menu
 import subprocess
 import platform
-from tkinter import ttk
+
 
 
 colorama.init()
@@ -139,85 +139,116 @@ def login_to_microsoft():
 
 
 
-
 def Download_Resume():
     global AuthorizationToken_Created
     if AuthorizationToken_Created:
         print("Login Successful..")
-        print("AuthorizationToken: ", AuthorizationToken_Created)
-
-        progress_bar.start(10)  # ✅ Start the progress bar
-
-        headers = {"Authorization": f"Bearer {AuthorizationToken_Created}"}
+        print("AuthorizationToken: ",AuthorizationToken_Created)
+        authorization_token = AuthorizationToken_Created
+        headers = {"Authorization": f"Bearer {authorization_token}"}
+        Resume_URL = "https://apim.people.deloitte/personresumes?email="
+        
+        #print(Fore.GREEN+f"Initiate Downloading...."+Style.RESET_ALL)
+        print("\nInitiate Downloading....")
+        #authorization_token = input("Please enter your authorization token: ")
+        authorization_token = AuthorizationToken_Created
+        headers = {"Authorization": f"Bearer {authorization_token}"}
         Resume_URL = "https://apim.people.deloitte/personresumes?email="
 
-        print("\nInitiate Downloading....")
         print("Reading Emails From EmailId.txt")
-
         Email_ID = open(email_id_file, 'r')
         Email_ID1 = Email_ID.readlines()
+        #print(Email_ID1)
         Email_URL_Write = open('Email_URL_Write.txt', 'a')
         Email_URL_read = open('Email_URL_Write.txt', 'r')
         existing_emails = set(Email_URL_read.read().splitlines())
         Email_URL_read.close()
-
         for Email in Email_ID1:
             Email = Email.strip()
-            Resume_URL_with_email = str(Resume_URL + Email)
+            Resume_URL_with_email = str(Resume_URL+Email)
+            #print(Resume_URL_with_email)
+            #print(Resume_URL_with_email)
             if Resume_URL_with_email not in existing_emails:
-                Email_URL_Write.write(Resume_URL_with_email + "\n")
+                Email_URL_Write.write(Resume_URL_with_email)
+                Email_URL_Write.write("\n")
                 existing_emails.add(Resume_URL_with_email)
-
+            #else:
+                #print("Email Exist in the file..")
+            
         Email_ID.close()    
         Email_URL_Write.close()
-
+    
         urls_file = "Email_URL_Write.txt"
+        max_workers = 20
         urls = read_urls_from_file(urls_file)
-
-        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_url = {executor.submit(send_get_request, url, headers): url for url in urls}
             for future in concurrent.futures.as_completed(future_to_url):
                 url = future_to_url[future]
                 try:
                     response = future.result()
+                    # You can handle the response here (e.g., save to a file, process data, etc.)
+                    #print(f"Response from {url}: {response.status_code}")
                     ResumeDownloadURL = open('ResumeDownloadURL.txt', 'a')
-                    json_Resume_data = response.json()
+                    json_Resume_data = (response.json())
                     for item in json_Resume_data["data"]:
-                        documentUrl = item["documentUrl"].strip()
-                        ResumeDownloadURL.write(documentUrl + "\n")
+                        fileName = item["fileName"]
+                        creationDate = item["creationDate"]
+                        documentUrl = item["documentUrl"]
+                        #print("Resume_Name:", fileName)
+                        #print("creationDate:", creationDate)
+                        #print("documentUrl:", documentUrl)
+                        documentUrl = documentUrl.strip()
+                        resume_documentUrl = str(documentUrl)
+                        #print(documentUrl)
+                        ResumeDownloadURL.write(resume_documentUrl)
+                        ResumeDownloadURL.write("\n")
+                        #print("\n")
                     ResumeDownloadURL.close()
                 except Exception as e:
                     print(f"Error accessing {url}: {e}")
 
+        
         ResumeDownloadurls_file = "ResumeDownloadURL.txt"
         ResumeDownloadurls_urls = read_urls_from_file1(ResumeDownloadurls_file)
-
-        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+    
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_url1 = {executor.submit(downloadfile, url, headers): url for url in ResumeDownloadurls_urls}
             for future in concurrent.futures.as_completed(future_to_url1):
                 url = future_to_url1[future]
                 try:
                     response = future.result()
-                    headerfilename = response.headers.get("content-disposition")
+                    #print(f"Response from {url}: {response.status_code}")
+                    headerfilename = (response.headers.get("content-disposition"))
+                    downloadresponse = response.content
                     filename_pattern = r'filename="([^"]+)"'
                     match = re.search(filename_pattern, headerfilename)
                     if match:
                         filename = match.group(1)
+                        
+                        print(filename)
+                    
                         save_path = os.path.join("Resume_Download", filename)
+                        #print(save_path)
                         with open(save_path, 'wb') as f:
+                            #print(save_path)
                             f.write(response.content)
-                            print("PDF file downloaded successfully.")
+                            print("PDF file downloaded successfully and saved to Resume_Download folder.")
+                            print("\n")
+    
                 except Exception as e:
                     print(f"Error accessing {url}: {e}")
 
-        os.remove("ResumeDownloadURL.txt")
-        os.remove("Email_URL_Write.txt")
-
-        progress_bar.stop()  # ✅ Stop the progress bar
-        print("Download completed.")
 
     else:
-        print("Login Failed.")
+        print("Login Failed..")
+
+    #print("\n")
+    print("Download completed..")
+    os.remove("ResumeDownloadURL.txt")
+    os.remove("Email_URL_Write.txt")
+    
+    #input(Fore.GREEN + "Press enter to close the terminal:"+Style.RESET_ALL)
     
  
 def CreateFolder():
@@ -552,11 +583,6 @@ label.pack(pady=1)
 label = tk.Label(root, text="rishabhsharma96@deloitte.com",fg="red", cursor="hand2",font=("Arial",10,"underline"),bg="#ddc8cf")
 label.pack(pady=2)
 label.bind("<Button-1>", lambda e: open_email())
-
-
-progress_bar = ttk.Progressbar(root, orient="horizontal", length=300, mode="indeterminate")
-progress_bar.pack(pady=5)
-
 
 output_text = tk.Text(root, wrap="word", height=15)
 output_text.pack(fill=tk.BOTH, expand=True)
