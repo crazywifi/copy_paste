@@ -460,6 +460,18 @@ def append_operator(op, search_entry):
     elif not text:  # Prevent starting with an operator
         messagebox.showerror("Error", "Please enter a search keyword before adding an operator.")
 
+def on_hover(event):
+    try:
+        result_text.tag_remove("hover", "1.0", tk.END)  # Remove previous highlights
+        index = result_text.index(f"@{event.x},{event.y}")  # Get cursor position
+        line_start = f"{index.split('.')[0]}.0"
+        line_end = f"{index.split('.')[0]}.end"
+
+        result_text.tag_add("hover", line_start, line_end)  # Apply hover highlight
+        result_text.tag_config("hover", background="lightblue")  # Light blue hover effect
+    except Exception as e:
+        print(f"Error in hover effect: {e}")
+        
 def Search_Resume():
     search_window = tk.Toplevel(root)
     search_window.title("Search String")
@@ -500,9 +512,9 @@ def Search_Resume():
     result_text = scrolledtext.ScrolledText(search_window, height=10, width=60)
     result_text.pack(pady=5)
 
-    result_text.bind("<Button-1>", on_select)  # Left-click to highlight
-    #result_text.bind("<Button-3>", open_file)  # Right-click to open file
-    result_text.bind("<Double-Button-1>", open_file)  # Right-click to open file
+    # Bind mouse motion for hover effect
+    result_text.bind("<Motion>", on_hover)  # ✅ Highlights the file under the cursor
+    result_text.bind("<Double-Button-1>", open_file)  # ✅ Double-click to open file
 
 
 
