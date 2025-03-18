@@ -32,7 +32,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext, Menu
 import subprocess
 import platform
-
+from tkinter import ttk
 
 
 colorama.init()
@@ -140,7 +140,7 @@ def login_to_microsoft():
 
 
 def Download_Resume():
-    global AuthorizationToken_Created
+    global AuthorizationToken_Created, total_emails, current_email
     if AuthorizationToken_Created:
         print("Login Successful..")
         print("AuthorizationToken: ",AuthorizationToken_Created)
@@ -148,9 +148,7 @@ def Download_Resume():
         headers = {"Authorization": f"Bearer {authorization_token}"}
         Resume_URL = "https://apim.people.deloitte/personresumes?email="
         
-        #print(Fore.GREEN+f"Initiate Downloading...."+Style.RESET_ALL)
         print("\nInitiate Downloading....")
-        #authorization_token = input("Please enter your authorization token: ")
         authorization_token = AuthorizationToken_Created
         headers = {"Authorization": f"Bearer {authorization_token}"}
         Resume_URL = "https://apim.people.deloitte/personresumes?email="
@@ -158,7 +156,13 @@ def Download_Resume():
         print("Reading Emails From EmailId.txt")
         Email_ID = open(email_id_file, 'r')
         Email_ID1 = Email_ID.readlines()
-        #print(Email_ID1)
+        
+        # Get total number of emails for progress bar
+        total_emails = len(Email_ID1)
+        current_email = 0
+        progress_bar["maximum"] = total_emails
+        progress_bar["value"] = 0
+        
         Email_URL_Write = open('Email_URL_Write.txt', 'a')
         Email_URL_read = open('Email_URL_Write.txt', 'r')
         existing_emails = set(Email_URL_read.read().splitlines())
@@ -166,14 +170,10 @@ def Download_Resume():
         for Email in Email_ID1:
             Email = Email.strip()
             Resume_URL_with_email = str(Resume_URL+Email)
-            #print(Resume_URL_with_email)
-            #print(Resume_URL_with_email)
             if Resume_URL_with_email not in existing_emails:
                 Email_URL_Write.write(Resume_URL_with_email)
                 Email_URL_Write.write("\n")
                 existing_emails.add(Resume_URL_with_email)
-            #else:
-                #print("Email Exist in the file..")
             
         Email_ID.close()    
         Email_URL_Write.close()
@@ -187,30 +187,40 @@ def Download_Resume():
                 url = future_to_url[future]
                 try:
                     response = future.result()
-                    # You can handle the response here (e.g., save to a file, process data, etc.)
-                    #print(f"Response from {url}: {response.status_code}")
                     ResumeDownloadURL = open('ResumeDownloadURL.txt', 'a')
                     json_Resume_data = (response.json())
                     for item in json_Resume_data["data"]:
                         fileName = item["fileName"]
                         creationDate = item["creationDate"]
                         documentUrl = item["documentUrl"]
-                        #print("Resume_Name:", fileName)
-                        #print("creationDate:", creationDate)
-                        #print("documentUrl:", documentUrl)
                         documentUrl = documentUrl.strip()
                         resume_documentUrl = str(documentUrl)
-                        #print(documentUrl)
                         ResumeDownloadURL.write(resume_documentUrl)
                         ResumeDownloadURL.write("\n")
-                        #print("\n")
                     ResumeDownloadURL.close()
+                    
+                    # Update progress bar for each email processed
+                    current_email += 1
+                    progress_bar["value"] = current_email
+                    root.update_idletasks()  # Update the GUI
+                    
                 except Exception as e:
                     print(f"Error accessing {url}: {e}")
+                    # Still update progress bar even if there's an error
+                    current_email += 1
+                    progress_bar["value"] = current_email
+                    root.update_idletasks()
 
-        
         ResumeDownloadurls_file = "ResumeDownloadURL.txt"
         ResumeDownloadurls_urls = read_urls_from_file1(ResumeDownloadurls_file)
+        
+        # Reset progress bar for file download
+        total_downloads = len(ResumeDownloadurls_urls)
+        current_download = 0
+        progress_bar["maximum"] = total_downloads
+        progress_bar["value"] = 0
+        progress_label.config(text="Downloading Resumes:")
+        root.update_idletasks()
     
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_url1 = {executor.submit(downloadfile, url, headers): url for url in ResumeDownloadurls_urls}
@@ -218,7 +228,6 @@ def Download_Resume():
                 url = future_to_url1[future]
                 try:
                     response = future.result()
-                    #print(f"Response from {url}: {response.status_code}")
                     headerfilename = (response.headers.get("content-disposition"))
                     downloadresponse = response.content
                     filename_pattern = r'filename="([^"]+)"'
@@ -229,26 +238,30 @@ def Download_Resume():
                         print(filename)
                     
                         save_path = os.path.join("Resume_Download", filename)
-                        #print(save_path)
                         with open(save_path, 'wb') as f:
-                            #print(save_path)
                             f.write(response.content)
                             print("PDF file downloaded successfully and saved to Resume_Download folder.")
                             print("\n")
+                    
+                    # Update progress bar for each download
+                    current_download += 1
+                    progress_bar["value"] = current_download
+                    root.update_idletasks()
     
                 except Exception as e:
                     print(f"Error accessing {url}: {e}")
-
+                    # Still update progress bar even if there's an error
+                    current_download += 1
+                    progress_bar["value"] = current_download
+                    root.update_idletasks()
 
     else:
         print("Login Failed..")
 
-    #print("\n")
     print("Download completed..")
+    progress_label.config(text="Download Complete!")
     os.remove("ResumeDownloadURL.txt")
     os.remove("Email_URL_Write.txt")
-    
-    #input(Fore.GREEN + "Press enter to close the terminal:"+Style.RESET_ALL)
     
  
 def CreateFolder():
@@ -583,6 +596,23 @@ label.pack(pady=1)
 label = tk.Label(root, text="rishabhsharma96@deloitte.com",fg="red", cursor="hand2",font=("Arial",10,"underline"),bg="#ddc8cf")
 label.pack(pady=2)
 label.bind("<Button-1>", lambda e: open_email())
+
+####
+
+progress_frame = tk.Frame(root, bg="#ddc8cf")
+progress_frame.pack(pady=5, fill=tk.X, padx=10)
+
+progress_label = tk.Label(progress_frame, text="Download Progress:", bg="#ddc8cf")
+progress_label.pack(side=tk.TOP, anchor="w")
+
+progress_bar = ttk.Progressbar(progress_frame, orient="horizontal", length=380, mode="determinate")
+progress_bar.pack(fill=tk.X)
+
+# Add this variable to track the total number of emails
+total_emails = 0
+current_email = 0
+
+##
 
 output_text = tk.Text(root, wrap="word", height=15)
 output_text.pack(fill=tk.BOTH, expand=True)
