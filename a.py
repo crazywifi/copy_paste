@@ -69,7 +69,7 @@ class ResumeDownloader:
         
     def setup_ui(self):
         """Set up the user interface"""
-        self.root.title("Deloitte Resume Downloader v1.1")
+        self.root.title("D-Talent Finder v1.0")
         self.root.geometry("400x500")
         self.root.configure(bg="#ddc8cf")
         
@@ -93,10 +93,10 @@ class ResumeDownloader:
         tk.Button(self.root, text="Close", command=self.on_closing).pack(pady=5)
         
         # Footer information
-        tk.Label(self.root, text="Created By Rishabh Sharma", fg="red", bg="#ddc8cf").pack(pady=2)
-        tk.Label(self.root, text="For any feedback:", fg="red", font=("Arial", 10), bg="#ddc8cf").pack(pady=1)
+        tk.Label(self.root, text="Created By Rishabh Sharma", fg="#454545", bg="#ddc8cf").pack(pady=2)
+        tk.Label(self.root, text="For any feedback:", fg="#454545", font=("Arial", 10), bg="#ddc8cf").pack(pady=1)
         
-        email_label = tk.Label(self.root, text="rishabhsharma96@deloitte.com", fg="red", 
+        email_label = tk.Label(self.root, text="rishabhsharma96@deloitte.com", fg="#454545", 
                             cursor="hand2", font=("Arial", 10, "underline"), bg="#ddc8cf")
         email_label.pack(pady=2)
         email_label.bind("<Button-1>", lambda e: webbrowser.open("mailto:rishabhsharma96@deloitte.com"))
@@ -360,12 +360,12 @@ class ResumeDownloader:
     def search_resume(self):
         """Open the search window"""
         search_window = tk.Toplevel(self.root)
-        search_window.title("Resume Search")
+        search_window.title("D-Talent Finder v1.0")
         search_window.geometry("500x400")
         search_window.configure(bg="#ddc8cf")
         
         try:
-            search_window.iconbitmap(r".\icon1.ico")
+            search_window.iconbitmap(r".\icon.ico")
         except tk.TclError:
             print("Icon file 'icon1.ico' not found or not a valid icon file.")
         
@@ -488,42 +488,113 @@ class ResumeDownloader:
             messagebox.showerror("Error", "Please enter a search query.")
             return
         
-        formatted_query = self.format_search_query(query)
-        print(f"Searching for: {formatted_query}")
+        print(f"Searching for: {query}")
+        
+        # Parse the query for boolean operations
+        terms = []
+        operators = []
+        current_term = ""
+        
+        # Simple parser for boolean operators
+        for word in query.split():
+            if word.upper() in ("AND", "OR", "NOT"):
+                if current_term:
+                    terms.append(current_term.strip())
+                    current_term = ""
+                operators.append(word.upper())
+            else:
+                if current_term:
+                    current_term += " " + word
+                else:
+                    current_term = word
+        
+        # Add the last term if there is one
+        if current_term:
+            terms.append(current_term.strip())
+        
+        # Check if we have a valid boolean query
+        is_boolean = len(terms) >= 2 and len(operators) >= 1
         
         matching_files = []
-        total_files = len([f for f in os.listdir(RESUME_FOLDER) if os.path.isfile(os.path.join(RESUME_FOLDER, f))])
+        
+        # Filter out temporary files and get only supported file types
+        files_to_search = [f for f in os.listdir(RESUME_FOLDER) 
+                         if os.path.isfile(os.path.join(RESUME_FOLDER, f)) and 
+                         not f.startswith("~$") and
+                         f.lower().split('.')[-1] in ['pdf', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls']]
+        
+        total_files = len(files_to_search)
         
         # Show a loading indicator
         result_text.delete("1.0", tk.END)
         result_text.insert(tk.END, f"Searching {total_files} files...\n")
         self.root.update_idletasks()
         
-        for file in os.listdir(RESUME_FOLDER):
+        for file in files_to_search:
             filepath = os.path.join(RESUME_FOLDER, file)
-            if os.path.isfile(filepath):
-                # Update the search status
-                result_text.delete("1.0", "2.0")
-                result_text.insert("1.0", f"Searching {file}...\n")
-                self.root.update_idletasks()
+            
+            # Update the search status
+            result_text.delete("1.0", "2.0")
+            result_text.insert("1.0", f"Searching {file}...\n")
+            self.root.update_idletasks()
+            
+            try:
+                # Extract text from the file (case-insensitive)
+                text = self.extract_text(filepath).lower()
                 
-                try:
-                    text = self.extract_text(filepath)
-                    if self.boolean_search(text, formatted_query):
-                        matching_files.append(file)
-                except Exception as e:
-                    print(f"Error searching {file}: {e}")
+                # For boolean queries, evaluate the expression
+                if is_boolean:
+                    file_matches = self.evaluate_boolean_search(text, terms, operators)
+                else:
+                    # For simple queries, check if any term is found in the document
+                    query_terms = query.lower().split()
+                    file_matches = all(term.lower() in text for term in query_terms)
+                
+                if file_matches:
+                    matching_files.append(file)
+                    
+            except Exception as e:
+                print(f"Error searching {file}: {e}")
         
         # Display results
         result_text.delete("1.0", tk.END)
         if matching_files:
-            result_text.insert(tk.END, f"Found {len(matching_files)} matches:\n\n")
+            result_text.insert(tk.END, f"Found {len(matching_files)} files out of {total_files} files:\n\n")
             result_text.insert(tk.END, "\n".join(matching_files))
         else:
-            result_text.insert(tk.END, "No matching resumes found.")
+            result_text.insert(tk.END, f"No matching resumes found out of {total_files} files.")
+
+
+
+    def evaluate_boolean_search(self, text, terms, operators):
+        """Evaluate a boolean search expression"""
+        if not terms:
+            return False
+        
+        # Start with the first term
+        result = terms[0].lower() in text
+        
+        # Apply each operator and term in sequence
+        for i, operator in enumerate(operators):
+            if i + 1 < len(terms):
+                term_exists = terms[i + 1].lower() in text
+                
+                if operator == "AND":
+                    result = result and term_exists
+                elif operator == "OR":
+                    result = result or term_exists
+                elif operator == "NOT":
+                    result = result and not term_exists
+        
+        return result
+            
     
     def extract_text(self, filepath):
         """Extract text from various document formats"""
+        # Skip temporary files
+        if os.path.basename(filepath).startswith("~$"):
+            return ""
+            
         ext = filepath.lower().split(".")[-1]
         
         if ext == "pdf":
@@ -539,51 +610,114 @@ class ResumeDownloader:
             return ""
     
     def extract_text_from_pdf(self, filepath):
-        """Extract text from PDF file"""
+        """Extract text from PDF file with improved layout handling"""
         text = ""
         try:
             with fitz.open(filepath) as doc:
                 for page in doc:
-                    text += page.get_text("text") + "\n"
+                    # Using "text" mode preserves more text layout than other modes
+                    page_text = page.get_text("text")
+                    # Additionally extract text blocks to capture tables better
+                    blocks = page.get_text("blocks")
+                    block_text = "\n".join([b[4] for b in blocks if isinstance(b[4], str)])
+                    
+                    # Combine both extraction methods
+                    text += page_text + "\n" + block_text + "\n"
         except Exception as e:
             print(f"Error reading PDF {filepath}: {e}")
         return text
     
     def extract_text_from_docx(self, filepath):
-        """Extract text from DOCX file"""
+        """Extract text from DOCX file including tables"""
+        # Skip temporary files created by Microsoft Office (starting with ~$)
+        if os.path.basename(filepath).startswith("~$"):
+            return ""
+            
         try:
             doc = docx.Document(filepath)
-            return "\n".join([para.text for para in doc.paragraphs])
+            full_text = []
+            
+            # Extract text from paragraphs
+            for para in doc.paragraphs:
+                full_text.append(para.text)
+            
+            # Extract text from tables
+            for table in doc.tables:
+                for row in table.rows:
+                    row_text = []
+                    for cell in row.cells:
+                        # Get text from each paragraph in the cell
+                        for paragraph in cell.paragraphs:
+                            if paragraph.text.strip():
+                                row_text.append(paragraph.text.strip())
+                    if row_text:
+                        full_text.append(" ".join(row_text))
+            
+            return "\n".join(full_text)
         except Exception as e:
             print(f"Error reading DOCX {filepath}: {e}")
             return ""
     
     def extract_text_from_pptx(self, filepath):
-        """Extract text from PPTX file"""
+        """Extract text from PPTX file including tables and notes"""
         try:
             presentation = pptx.Presentation(filepath)
             text = []
+            
             for slide in presentation.slides:
+                # Extract text from shapes (including text boxes)
                 for shape in slide.shapes:
-                    if hasattr(shape, "text"):
-                        text.append(shape.text)
+                    if hasattr(shape, "text") and shape.text.strip():
+                        text.append(shape.text.strip())
+                    
+                    # Extract text from tables
+                    if shape.has_table:
+                        for row in shape.table.rows:
+                            row_text = []
+                            for cell in row.cells:
+                                if cell.text.strip():
+                                    row_text.append(cell.text.strip())
+                            if row_text:
+                                text.append(" ".join(row_text))
+                
+                # Extract text from notes
+                if slide.has_notes_slide:
+                    notes_slide = slide.notes_slide
+                    for shape in notes_slide.shapes:
+                        if hasattr(shape, "text") and shape.text.strip():
+                            text.append(shape.text.strip())
+            
             return "\n".join(text)
         except Exception as e:
             print(f"Error reading PPTX {filepath}: {e}")
             return ""
     
     def extract_text_from_excel(self, filepath):
-        """Extract text from Excel file"""
+        """Extract text from Excel file with improved cell handling"""
         try:
-            df = pd.read_excel(filepath, sheet_name=None)
-            text = []
-            for sheet_name, sheet_df in df.items():
-                text.append(f"Sheet: {sheet_name}")
-                text.append(sheet_df.to_string())
-            return "\n".join(text)
+            # Use pandas to read all sheets
+            all_text = []
+            xls = pd.ExcelFile(filepath)
+            
+            for sheet_name in xls.sheet_names:
+                df = pd.read_excel(filepath, sheet_name=sheet_name)
+                
+                # Convert all columns to string
+                for col in df.columns:
+                    df[col] = df[col].astype(str)
+                
+                # Get column headers
+                all_text.extend([str(col) for col in df.columns])
+                
+                # Get all cell values as flat list
+                for _, row in df.iterrows():
+                    all_text.extend([str(val) for val in row.values if str(val) != 'nan'])
+            
+            return " ".join(all_text)
         except Exception as e:
             print(f"Error reading Excel {filepath}: {e}")
             return ""
+
     
     def format_search_query(self, query):
         """Format search query with appropriate operators"""
