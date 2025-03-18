@@ -378,27 +378,27 @@ def format_search_query(query):
     temp_phrase = []
 
     for word in words:
-        if word.upper() in operators:  # Keep operators unchanged
+        if word.upper() in operators:  # If word is an operator
             if temp_phrase:
                 formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Wrap phrase in quotes
                 temp_phrase = []
             formatted_query.append(word)  # Add operator
         else:
-            temp_phrase.append(word)  # Build phrase
+            temp_phrase.append(word)  # Add to phrase
 
     if temp_phrase:
         formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Wrap last phrase in quotes
 
     final_query = " ".join(formatted_query)
 
-    # ✅ If the entire query contains NO operators, wrap the whole query in quotes
+    # ✅ If there's no logical operator, wrap the **entire query** in quotes
     if not any(op in final_query for op in operators):
         final_query = f'"{final_query}"'
 
     return final_query
 
 def search_resumes(result_text, query):
-    formatted_query = format_search_query(query)  # ✅ Automatically fix query
+    formatted_query = format_search_query(query)  # ✅ Automatically format query
     print("Formatted Query:", formatted_query)  # Debugging (remove later)
 
     if not query.strip():
