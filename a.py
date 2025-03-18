@@ -325,17 +325,20 @@ def extract_text(filepath):
         return ""
 
 def boolean_search(text, query):
+    query = format_search_query(query)  # ✅ Ensure it's formatted correctly
     query = query.replace("AND", "&").replace("OR", "|").replace("NOT", "~")
-    words = re.findall(r'\w+', query)
-    
+
+    words = re.findall(r'"[^"]+"|\w+', query)  # Extract quoted phrases and single words
+
     for word in words:
-        if word.lower() not in text.lower():
+        word_cleaned = word.strip('"')  # Remove surrounding quotes for actual matching
+        if word_cleaned.lower() not in text.lower():
             query = query.replace(word, "False")
         else:
             query = query.replace(word, "True")
-    
+
     try:
-        return eval(query)
+        return eval(query)  # Evaluate boolean expression safely
     except:
         return False
 
@@ -378,29 +381,28 @@ def format_search_query(query):
     temp_phrase = []
 
     for word in words:
-        if word.upper() in operators:  # If it's a logical operator
+        if word.upper() in operators:  # If it's an operator, keep it
             if temp_phrase:
                 formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Wrap phrase in quotes
                 temp_phrase = []
-            formatted_query.append(word)  # Keep operator unchanged
+            formatted_query.append(word)  # Add operator
         else:
-            temp_phrase.append(word)  # Add to phrase
+            temp_phrase.append(word)  # Add word to phrase
 
     if temp_phrase:
         formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Wrap last phrase in quotes
 
     final_query = " ".join(formatted_query)
 
-    # ✅ If there's NO logical operator, check if the query is multi-word
-    if not any(op in final_query for op in operators):
-        if " " in final_query:  # If it's a multi-word query, wrap the entire query in quotes
-            final_query = f'"{final_query}"'
+    # ✅ If there's NO logical operator, wrap the **entire query** in quotes
+    if not any(op in final_query for op in operators) and " " in final_query:
+        final_query = f'"{final_query}"'
 
     return final_query
 
 def search_resumes(result_text, query):
     formatted_query = format_search_query(query)  # ✅ Auto-format query
-    print("Formatted Query:", formatted_query)  # Debugging (remove later)
+    print("Formatted Query:", formatted_query)  # Debugging
 
     if not query.strip():
         messagebox.showerror("Error", "Please enter a search query.")
