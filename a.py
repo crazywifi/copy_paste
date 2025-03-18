@@ -372,23 +372,30 @@ def open_file(event):
         print(f"Error opening file: {e}")
 
 def format_search_query(query):
-    words = query.split()  # Split by spaces
+    words = query.split()  # Split query into words
+    operators = {"AND", "OR", "NOT"}  # Logical operators
     formatted_query = []
     temp_phrase = []
 
     for word in words:
-        if word.upper() in ["AND", "OR", "NOT"]:  # Logical operators stay untouched
+        if word.upper() in operators:  # Keep operators unchanged
             if temp_phrase:
-                formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Add phrase in quotes
+                formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Wrap phrase in quotes
                 temp_phrase = []
             formatted_query.append(word)  # Add operator
         else:
             temp_phrase.append(word)  # Build phrase
 
     if temp_phrase:
-        formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Add last phrase in quotes
+        formatted_query.append(f'"{" ".join(temp_phrase)}"')  # Wrap last phrase in quotes
 
-    return " ".join(formatted_query)
+    final_query = " ".join(formatted_query)
+
+    # ✅ If the entire query contains NO operators, wrap the whole query in quotes
+    if not any(op in final_query for op in operators):
+        final_query = f'"{final_query}"'
+
+    return final_query
 
 def search_resumes(result_text, query):
     formatted_query = format_search_query(query)  # ✅ Automatically fix query
@@ -411,11 +418,6 @@ def search_resumes(result_text, query):
         result_text.insert(tk.END, "\n".join(matching_files))
     else:
         result_text.insert(tk.END, "No matching resumes found.")
-
-def append_operator(op, search_entry):
-    text = search_entry.get()
-    search_entry.delete(0, tk.END)
-    search_entry.insert(0, text + f" {op} ")
 
 def browse_folder():
     global RESUME_FOLDER, folder_label
