@@ -126,7 +126,7 @@ def login_to_microsoft():
                 #first_match = match.group()
                 AuthorizationTOken = match.group(2)
                 AuthorizationToken_Created =  AuthorizationTOken
-                print(AuthorizationToken_Created)
+                #print(AuthorizationToken_Created)
                 break
                 #driver.quit()
             time.sleep(2)
@@ -148,7 +148,8 @@ def Download_Resume():
         headers = {"Authorization": f"Bearer {authorization_token}"}
         Resume_URL = "https://apim.people.deloitte/personresumes?email="
         
-        print(Fore.GREEN+f"Initiate Downloading...."+Style.RESET_ALL)
+        #print(Fore.GREEN+f"Initiate Downloading...."+Style.RESET_ALL)
+        print("\nInitiate Downloading....")
         #authorization_token = input("Please enter your authorization token: ")
         authorization_token = AuthorizationToken_Created
         headers = {"Authorization": f"Bearer {authorization_token}"}
@@ -224,6 +225,7 @@ def Download_Resume():
                     match = re.search(filename_pattern, headerfilename)
                     if match:
                         filename = match.group(1)
+                        
                         print(filename)
                     
                         save_path = os.path.join("Resume_Download", filename)
@@ -231,7 +233,8 @@ def Download_Resume():
                         with open(save_path, 'wb') as f:
                             #print(save_path)
                             f.write(response.content)
-                            print("PDF file downloaded successfully and saved to Resume_Download.")
+                            print("PDF file downloaded successfully and saved to Resume_Download folder.")
+                            print("\n")
     
                 except Exception as e:
                     print(f"Error accessing {url}: {e}")
@@ -240,7 +243,8 @@ def Download_Resume():
     else:
         print("Login Failed..")
 
-    print("Download complete..")
+    #print("\n")
+    print("Download completed..")
     os.remove("ResumeDownloadURL.txt")
     os.remove("Email_URL_Write.txt")
     
@@ -509,7 +513,7 @@ def Search_Resume():
 
     # Result Text Area
     global result_text  
-    result_text = scrolledtext.ScrolledText(search_window, height=10, width=60)
+    result_text = scrolledtext.ScrolledText(search_window, height=10, width=60, cursor="arrow")
     result_text.pack(pady=5)
 
     # Bind mouse motion for hover effect
@@ -573,7 +577,10 @@ label = tk.Label(root, text="Created By Rishabh Sharma",fg="red",bg="#ddc8cf")
 label.pack(pady=2)
 
 
-label = tk.Label(root, text="For any feedback: rishabhsharma96@deloitte.com",fg="red", cursor="hand2",font=("Arial",10,"underline"),bg="#ddc8cf")
+label = tk.Label(root, text="For any feedback:",fg="red",font=("Arial",10),bg="#ddc8cf")
+label.pack(pady=1)
+
+label = tk.Label(root, text="rishabhsharma96@deloitte.com",fg="red", cursor="hand2",font=("Arial",10,"underline"),bg="#ddc8cf")
 label.pack(pady=2)
 label.bind("<Button-1>", lambda e: open_email())
 
