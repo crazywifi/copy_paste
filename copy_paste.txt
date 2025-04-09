@@ -1,9 +1,8 @@
-const originalGetAttribute = Element.prototype.getAttribute;
-Element.prototype.getAttribute = function(name) {
-  if (name === "data-url") {
-    const value = originalGetAttribute.call(this, name);
-    console.log("[getAttribute] data-url read from:", this, "value:", value);
-    return value;
+const originalHtml = $.fn.html;
+$.fn.html = function(arg) {
+  if (typeof arg === 'string' && (arg.indexOf('<') !== -1 || arg.indexOf('>') !== -1)) {
+    console.log("[html() called with]:", arg);
+    console.trace();
   }
-  return originalGetAttribute.call(this, name);
+  return originalHtml.apply(this, arguments);
 };
