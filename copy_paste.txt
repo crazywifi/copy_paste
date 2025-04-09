@@ -1,1 +1,8 @@
-ss
+const originalGetAttribute = Element.prototype.getAttribute;
+
+Element.prototype.getAttribute = function(name) {
+  if (name === "data-url") {
+    console.log("[getAttribute] data-url called on:", this, "value:", originalGetAttribute.call(this, name));
+  }
+  return originalGetAttribute.call(this, name);
+};
