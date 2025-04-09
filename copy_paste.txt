@@ -1,1 +1,9 @@
-document.querySelector('[data-url]').setAttribute("data-url", '"><img src=x onerror=alert(1)>');
+const originalGetAttribute = Element.prototype.getAttribute;
+Element.prototype.getAttribute = function(name) {
+  if (name === "data-url") {
+    const value = originalGetAttribute.call(this, name);
+    console.log("[getAttribute] data-url read from:", this, "value:", value);
+    return value;
+  }
+  return originalGetAttribute.call(this, name);
+};
