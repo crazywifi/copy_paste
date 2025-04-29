@@ -154,3 +154,43 @@ for (let key in window) {
         }
     } catch (e) {}
 }
+
+
+
+
+// Try common IDs or classes
+const otp = document.querySelector('#generatedOTPValue')?.value 
+         || document.querySelector('input[name="generatedOTPValue"]')?.value 
+         || document.querySelector('[id*="otp"]')?.value 
+         || "OTP field not found";
+
+console.log("Stored OTP value:", otp);
+
+
+
+
+var generatedOtpValue = api.getProp("generatedOTPValue").value;
+
+
+console.log("Stored OTP value:", api.getProp("generatedOTPValue").value);
+
+
+Object.defineProperty(window, 'pin', {
+  set: function(val) {
+    console.log("[Hooked] OTP (PIN) generated and stored:", val);
+    this._pin = val;
+  },
+  get: function() {
+    return this._pin;
+  }
+});
+
+
+
+
+const observer = new MutationObserver(() => {
+  const allInputs = Array.from(document.querySelectorAll('input')).filter(el => el.type === 'hidden');
+  allInputs.forEach(el => console.log("Hidden input found:", el.name, "Value:", el.value));
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
