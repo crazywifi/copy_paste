@@ -112,3 +112,28 @@ Object.defineProperty(window, 'pin', {
     }
 });
 
+
+
+
+
+
+
+for (let prop in window) {
+  try {
+    if (window[prop]?.getProp?.toString().includes('generatedOTPValue')) {
+      console.log("Found API object:", prop);
+      console.log(window[prop].getProp("generatedOTPValue").value);
+    }
+  } catch (e) {}
+}
+
+
+
+
+
+
+var generatedOTPValue = api.getProp("generatedOTPValue").value;
+
+
+temp1.getProp("generatedOTPValue").value
+
