@@ -137,3 +137,20 @@ var generatedOTPValue = api.getProp("generatedOTPValue").value;
 
 temp1.getProp("generatedOTPValue").value
 
+
+
+
+for (let key in window) {
+    try {
+        if (
+            typeof window[key] === 'object' &&
+            window[key] !== null &&
+            typeof window[key].getProp === 'function'
+        ) {
+            const otp = window[key].getProp("generatedOTPValue")?.value;
+            if (otp) {
+                console.log("OTP found via object:", key, "Value:", otp);
+            }
+        }
+    } catch (e) {}
+}
