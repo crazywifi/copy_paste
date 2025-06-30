@@ -1,0 +1,32 @@
+import pandas as pd
+
+# Load APPIDs from appid.txt
+with open('appid.txt', 'r') as f:
+    appid_list = [line.strip() for line in f if line.strip().isdigit()]
+
+# Load Excel file
+df = pd.read_excel('a.xlsx', dtype=str)  # Force everything as string
+
+# Flatten all Excel cell values into a single string list for searching
+all_excel_values = df.astype(str).values.flatten()
+
+# Check which APPIDs exist
+found = []
+not_found = []
+
+for appid in appid_list:
+    # Check if any Excel cell contains the pattern "APPID-<appid>"
+    if any(f"APPID-{appid}" in cell for cell in all_excel_values):
+        found.append(appid)
+    else:
+        not_found.append(appid)
+
+# Output results
+print(f"Total APPIDs: {len(appid_list)}")
+print(f"Found: {len(found)}")
+print(f"Not Found: {len(not_found)}")
+
+if not_found:
+    print("\nAPPIDs not found:")
+    for nf in not_found:
+        print(nf)
